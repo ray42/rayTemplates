@@ -1,0 +1,88 @@
+\begin{figure}[!h]
+\centering
+\begin{tikzpicture}[scale=0.5,node distance=3cm]
+% node size
+\newcommand\nodesize{0.45}
+\draw[help lines] (0,0) grid (17,1);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{scope}[shift={(0,0)}]
+% The box
+%\tikzstyle{tikzraybox} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30]
+\tikzstyle{tikzraybox} = [rectangle, rounded corners, minimum width=2cm, minimum height=0.5cm,text centered, draw=black]
+% The arrow
+\tikzstyle{tikzrayarrow} = [very thick,->,>=stealth]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Now start drawing
+%\node(ppi) [tikzraybox, label=above:{\small \ctt{ppi}}] {};
+%\node(pi) [tikzraybox, label=above:{\small \ctt{pi}}, right of=ppi] {};
+%\node(ival) [tikzraybox, label=above:{\small \ctt{ival}},right of=pi] {1024};
+
+%\draw [tikzrayarrow] (ppi.center) -- (pi);
+%\draw [tikzrayarrow] (pi.center) -- (ival);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% First draw the main box
+\pgfmathsetmacro{\StartX}{0.5}
+\pgfmathsetmacro{\StartY}{0.5}
+\node at (\StartX,\StartY){\ctt{F}};
+\node at (\StartX+1,\StartY){\ctt{I}};
+\node at (\StartX+2,\StartY){\ctt{R}};
+\node at (\StartX+3,\StartY){\ctt{S}};
+\node at (\StartX+4,\StartY){\ctt{T}};
+\node at (\StartX+5,\StartY){\ctt{,}};
+\node at (\StartX+6,\StartY){\ctt{M}};
+\node at (\StartX+7,\StartY){\ctt{I}};
+\node at (\StartX+8,\StartY){\ctt{D}};
+\node at (\StartX+9,\StartY){\ctt{D}};
+\node at (\StartX+10,\StartY){\ctt{L}};
+\node at (\StartX+11,\StartY){\ctt{E}};
+\node at (\StartX+12,\StartY){\ctt{,}};
+\node at (\StartX+13,\StartY){\ctt{L}};
+\node at (\StartX+14,\StartY){\ctt{A}};
+\node at (\StartX+15,\StartY){\ctt{S}};
+\node at (\StartX+16,\StartY){\ctt{T}};
+
+% Top arrows going down
+\pgfmathsetmacro{\TopArrowYStart}{2}
+\pgfmathsetmacro{\TopArrowYEnd}{1.1}
+% Pick the X values by the list of letters above
+\draw[tikzrayarrow](\StartX,\TopArrowYStart)--(\StartX,\TopArrowYEnd);
+\draw[tikzrayarrow](\StartX+5,\TopArrowYStart)--(\StartX+5,\TopArrowYEnd);
+\draw[tikzrayarrow](\StartX+13,\TopArrowYStart)--(\StartX+13,\TopArrowYEnd);
+\draw[tikzrayarrow](\StartX+17,\TopArrowYStart)--(\StartX+17,\TopArrowYEnd);
+
+% Bot arrows going up
+\pgfmathsetmacro{\BotArrowYStart}{-1}
+\pgfmathsetmacro{\BotArrowYEnd}{-0.1}
+\draw[tikzrayarrow](\StartX+12,\BotArrowYStart)--(\StartX+12,\BotArrowYEnd);
+\draw[tikzrayarrow](\StartX+16,\BotArrowYStart)--(\StartX+16,\BotArrowYEnd);
+
+% Top arrows going to the right.
+\pgfmathsetmacro{\TopArrowY}{1.3}
+\draw[tikzrayarrow](\StartX+0.2,\TopArrowY)--(\StartX+5-0.2,\TopArrowY);
+\draw[tikzrayarrow](\StartX+13+0.2,\TopArrowY)--(\StartX+17-0.2,\TopArrowY);
+
+% Bot arrows going to the left.
+\pgfmathsetmacro{\TopArrowY}{-0.3}
+\draw[tikzrayarrow](\StartX+16-0.2,\TopArrowY)--(\StartX+12+0.2,\TopArrowY);
+
+% Top words
+\pgfmathsetmacro{\TopWordY}{2.7}
+\node at (\StartX,\TopWordY){\ctt{cbegin()}};
+\node at (\StartX+5,\TopWordY){\ctt{comma}};
+\node at (\StartX+12,\TopWordY){\ctt{rcomma.base()}};
+\node at (\StartX+17,\TopWordY){\ctt{cend()}};
+
+% Bot words
+\pgfmathsetmacro{\BotWordY}{-1.7}
+\node at (\StartX+12,\BotWordY){\ctt{rcomma}};
+\node at (\StartX+16,\BotWordY){\ctt{crbegin()}};
+
+\end{scope}
+\end{tikzpicture}
+\caption[Relationship between Reverse and Ordinary Iterators]
+ {Relationship between Reverse and Ordinary Iterators
+  \label{figC10N2Comma}}
+\end{figure}

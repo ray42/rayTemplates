@@ -1,0 +1,41 @@
+
+https://stackoverflow.com/questions/3844311/how-do-i-replace-or-find-non-printable-characters-in-vim-regex
+
+Removing control symbols only:
+
+:%s/[[:cntrl:]]//g
+Removing non-printable characters (removes non-ASCII characters also):
+
+:%s/[^[:print:]]//g
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+
+do stuff in all tabs:
+use tabdo instead of bufdo
+http://vim.wikia.com/wiki/Search_and_replace_in_multiple_buffers
+:bufdo %s/pattern/replace/ge | update
+
+bufdo     Apply the following commands to all buffers.
+%s        Search and replace all lines in the buffer.
+pattern   Search pattern.
+replace   Replacement text.
+g         Change all occurrences in each line (global).
+e         No error if the pattern is not found.
+|         Separator between commands.
+update    Save (write file only if changes were made).
+
+The command above uses :update to save each buffer, if it was changed. That is
+necessary because, by default, Vim will not switch away from a buffer if it has
+been changed.
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+
+13:23 < tobiasvl> Zwei: /\[\([0-9]\+\)\]/\\cite{CLRS\1}/
+13:23 < tobiasvl> \0 is the matched string, \1 is the first \(\) matching group
+
+
+
+

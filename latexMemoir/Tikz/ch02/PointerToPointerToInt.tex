@@ -1,0 +1,27 @@
+\begin{figure}[!h]
+\centering
+\begin{tikzpicture}[scale=0.5,node distance=3cm]
+% node size
+\newcommand\nodesize{0.45}
+%\draw[help lines] (0,0) grid (20,16);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{scope}[shift={(0,0)}]
+% The box
+%\tikzstyle{tikzraybox} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30]
+\tikzstyle{tikzraybox} = [rectangle, rounded corners, minimum width=2cm, minimum height=0.5cm,text centered, draw=black]
+% The arrow
+\tikzstyle{tikzrayarrow} = [very thick,->,>=stealth]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Now start drawing
+\node(ppi) [tikzraybox, label=above:{\small \ctt{ppi}}] {};
+\node(pi) [tikzraybox, label=above:{\small \ctt{pi}}, right of=ppi] {};
+\node(ival) [tikzraybox, label=above:{\small \ctt{ival}},right of=pi] {1024};
+
+\draw [tikzrayarrow] (ppi.center) -- (pi);
+\draw [tikzrayarrow] (pi.center) -- (ival);
+
+\end{scope}
+\end{tikzpicture}
+\end{figure}

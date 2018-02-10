@@ -1,0 +1,69 @@
+\begin{figure}[!htbp]
+\centering
+\scalebox{0.8}{
+\begin{tikzpicture}[scale=0.8]
+%\draw[help lines] (0,0) grid (15,6);
+
+\begin{scope}[shift={(0,0)}]
+% First rectangle
+\draw [ultra thick](1,0) -- (1,4) -- (6,4) -- (6,0) -- (1,0);
+% Inflow profile
+\draw [ultra thick](1,0) to [out=60,in=300] (1,4);
+% Velocity stream lines
+\draw [ultra thick,->](1.2,3) -- (2.75,3);
+\draw [ultra thick,->](1.2,2) -- (2.75,2);
+\draw [ultra thick,->](1.2,1) -- (2.75,1);
+\draw [ultra thick,->](5.2,3) -- (6.75,3);
+\draw [ultra thick,->](5.2,2) -- (6.75,2);
+\draw [ultra thick,->](5.2,1) -- (6.75,1);
+\node[draw=none,align=right] at (0.35,2) {\large $\inbound$}; % inflow
+\node[draw=none,align=center] at (3.5,4.5) {\large $\charbound$}; % top
+\node[draw=none,align=left] at (6.65,1.5) {\large $\outbound$}; % right
+\node[draw=none,align=center] at (3.5,-0.5) {\large $\charbound$}; % bot
+\node[draw=none,align=center] at (3.5,2) {\large $\domain$}; % domain
+\end{scope}
+\begin{scope}[shift={(1,0)}]
+% Second rectangle
+\draw [ultra thick](9,0) -- (9,4) -- (14,4) -- (14,0) -- (9,0);
+\newcommand \xmintt{9.7}
+\newcommand \xmaxtt{13.3}
+\newcommand \ymintt{0.7}
+\newcommand \ymaxtt{3.3}
+\coordinate (botleft2) at (\xmintt,\ymintt);
+\coordinate (botright2) at (\xmaxtt,\ymintt);
+\coordinate (topright2) at (\xmaxtt,\ymaxtt);
+\coordinate (topleft2) at (\xmintt,\ymaxtt);
+\draw plot[smooth cycle, ultra thick, tension=0.65]
+  coordinates{(botleft2) (botright2) (topright2) (topleft2)}
+  [postaction={decorate, decoration={markings,
+  % Red arrows
+  mark=between positions 0.05 and 1 step 0.25 with {\arrow[line width=0.6mm]{>};}
+        }}]; 
+\renewcommand \xmintt{10.3}
+\renewcommand \xmaxtt{12.7}
+\renewcommand \ymintt{1.3}
+\renewcommand \ymaxtt{2.7}
+\coordinate (botleft2) at (\xmintt,\ymintt);
+\coordinate (botright2) at (\xmaxtt,\ymintt);
+\coordinate (topright2) at (\xmaxtt,\ymaxtt);
+\coordinate (topleft2) at (\xmintt,\ymaxtt);
+\draw plot[smooth cycle, ultra thick, tension=0.65]
+  coordinates{(botleft2) (botright2) (topright2) (topleft2)}
+  [postaction={decorate, decoration={markings,
+  % Red arrows
+  mark=between positions 0.05 and 1 step 0.25 with {\arrow[line width=0.6mm]{>};}
+        }}];
+\node[draw=none,align=right] at (8.35,2) {\large $\charbound$}; % inflow
+\node[draw=none,align=center] at (11.5,4.5) {\large $\charbound$}; % top
+\node[draw=none,align=left] at (14.65,2) {\large $\charbound$}; % right
+\node[draw=none,align=center] at (11.5,-0.5) {\large $\charbound$}; % bot
+\node[draw=none,align=center] at (11.5,2) {\large $\domain$}; % domain
+\end{scope}
+\end{tikzpicture}
+}
+\caption[Typical configurations of boundary problems]
+{Typical configuration of 
+         a flow-through problem (left), and 
+         an enclosed flow problem (right).
+         \label{fig:demoprob_bc}}
+\end{figure}

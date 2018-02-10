@@ -1,0 +1,62 @@
+\begin{figure}[!h]
+\centering
+\begin{tikzpicture}[scale=0.5,node distance=3cm]
+% node size
+\newcommand\nodesize{0.45}
+%\draw[help lines] (0,0) grid (17,1);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{scope}[shift={(0,0)}]
+% The box
+%\tikzstyle{tikzraybox} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30]
+\tikzstyle{tikzraybox} = [rectangle, rounded corners, minimum width=2cm, minimum height=0.5cm,text centered, draw=black]
+% The arrow
+\tikzstyle{tikzrayarrow} = [very thick,->,>=stealth]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Now start drawing
+%\node(ppi) [tikzraybox, label=above:{\small \ctt{ppi}}] {};
+%\node(pi) [tikzraybox, label=above:{\small \ctt{pi}}, right of=ppi] {};
+%\node(ival) [tikzraybox, label=above:{\small \ctt{ival}},right of=pi] {1024};
+
+%\draw [tikzrayarrow] (ppi.center) -- (pi);
+%\draw [tikzrayarrow] (pi.center) -- (ival);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% First draw the main box
+\draw (0,0) rectangle (17,1);
+% Draw the segments
+\draw (1,0)--(1,1);
+\draw (2,0)--(2,1);
+\draw (3,0)--(3,1);
+\draw (4,0)--(4,1);
+\draw (5,0)--(5,1);
+
+\pgfmathsetmacro{\StartX}{0.5}
+\pgfmathsetmacro{\StartY}{0.5}
+\node at (\StartX,\StartY){\ctt{0}};
+\node at (\StartX+1,\StartY){\ctt{1}};
+\node at (\StartX+2,\StartY){\ctt{2}};
+\node at (\StartX+3,\StartY){\ctt{3}};
+\node at (\StartX+4,\StartY){\ctt{4}};
+\node at (\StartX+10.5,\StartY){\textit{unconstructed elements}};
+
+% Bot arrows going up
+\pgfmathsetmacro{\BotArrowYStart}{-1}
+\pgfmathsetmacro{\BotArrowYEnd}{-0.1}
+\draw[tikzrayarrow](\StartX,\BotArrowYStart)--(\StartX,\BotArrowYEnd);
+\draw[tikzrayarrow](\StartX+5,\BotArrowYStart)--(\StartX+5,\BotArrowYEnd);
+\draw[tikzrayarrow](\StartX+17,\BotArrowYStart)--(\StartX+17,\BotArrowYEnd);
+
+% Bot words
+\pgfmathsetmacro{\BotWordY}{-1.7}
+\node at (\StartX,\BotWordY){\ctt{element}};
+\node at (\StartX+5,\BotWordY){\ctt{first\_free}};
+\node at (\StartX+17,\BotWordY){\ctt{cap}};
+
+\end{scope}
+\end{tikzpicture}
+\caption[StrVec pointers]
+ {\ctt{StrVec} pointers.
+  \label{figC13N2StrVecPointers}}
+\end{figure}

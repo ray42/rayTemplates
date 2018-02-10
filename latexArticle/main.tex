@@ -1,0 +1,1072 @@
+\documentclass[12pt,a4paper]{article}
+
+% New versions of latex has deprecated \it and \tt with \itshape and
+% \ttfamily. But some packages (such as lstlisting)  still use it. So we
+% alias for compatibility
+\renewcommand{\it}{\itshape}
+\renewcommand{\tt}{\ttfamily}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% PACKAGES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%---------------------------------------------------------------------------
+% Apply patches to other packages
+%---------------------------------------------------------------------------
+\usepackage{xpatch} % Currently not used.
+
+
+%---------------------------------------------------------------------------
+% Silence warnings
+%---------------------------------------------------------------------------
+% Silence warnings by hyper link
+\usepackage{silence}
+
+
+%---------------------------------------------------------------------------
+% Colours
+%---------------------------------------------------------------------------
+%\usepackage{color} % loaded by xcolor
+
+% If you are using tikz or pstricks package you must declare the xcolor 
+% package before that, otherwise it will not work.
+% http://ctan.org/pkg/xcolor
+\usepackage[usenames,dvipsnames,svgnames,x11names]{xcolor}
+
+%---------------------------------------------------------------------------
+% Maths
+%---------------------------------------------------------------------------
+
+%http://tex.stackexchange.com/questions/32100/what-does-each-ams-package-do
+%Most of the answer was extracted from the Introduction sections of the 
+%documentation of amsmath and amsthm:
+%\usepackage{amsmath}%AMS mathematical facilities for LATEX
+\usepackage{mathtools} % mathtools loads/extends amsmath.
+\usepackage{amsthm} % ams theorem
+\usepackage{amssymb} % loads amsfonts
+
+%https://tex.stackexchange.com/questions/232922/a-hack-for-getting-a-capital-weierstrass-p-in-order-to-represent-the-power-set
+\usepackage{mathrsfs}
+\usepackage[mathscr]{euscript}
+\let\euscr\mathscr \let\mathscr\relax% just so we can load this and rsfs
+\usepackage[scr]{rsfso}
+\newcommand{\powerset}{\raisebox{.15\baselineskip}{\Large\ensuremath{\wp}}}
+%Usage:
+%$\mathcal{P}(X)$ 
+%$\euscr{P}(X)$
+%$\mathscr{P}(X)$
+%$\powerset(X)$
+
+% For boxes around equations
+% https://tex.stackexchange.com/questions/20575/attractive-boxed-equations
+% https://tex.stackexchange.com/questions/193242/how-to-make-a-box-around-an-equation-in-align-environment
+\usepackage{empheq}
+\usepackage[most]{tcolorbox}
+%\begin{empheq}[box=\tcbhighmath]{equation*}
+%    c_i = \langle\psi|\phi\rangle
+%\end{empheq}
+
+
+
+%1)amsmath provides miscellaneous enhancements for improving the information 
+%structure and printed output of documents containing mathematical formulas.
+%Some of the features provided by this package are:
+%  The \DeclareMathOperator command (through the auxiliary package amsopn) 
+%  to define new "operator name" commands analogous to \sin and \lim, 
+%  including proper side spacing and automatic selection of the correct font
+%  style and size (even when used in sub- or superscripts).
+%
+%  Multiple substitutes for the eqnarray environment to make various kinds 
+%  of equation arrangements easier to write.
+%
+%  Equation numbers automatically adjust up or down to avoid overprinting on
+%  the equation contents (unlike eqnarray).
+%
+%  Spacing around equals signs matches the normal spacing in the equation 
+%  environment (unlike eqnarray).
+%
+%  A way to produce multiline subscripts as are often used with summation or
+%  product symbols.
+%
+%  An easy way to substitute a variant equation number for a given equation
+%  instead of the automatically supplied number.
+%
+%  An easy way to produce subordinate equation numbers of the form (1.3a) 
+%  (1.3b) (1.3c) for selected groups of equations.
+%
+%  The \text command (through the auxiliary package amstext) for typesetting
+%  a fragment of text inside a display.
+
+%2)amsthm helps to define theorem-like structures; the introduction to the 
+%documentation gives a nice concise description of the package:
+%  The amsthm package provides an enhanced version of LaTeX's  \newtheorem 
+%  command for defining theorem-like environments. The enhanced \newtheorem
+%  recognizes a \theoremstyle specification (as in Mittelbach's theorem 
+%  package) and has a * form for defining unnumbered environments. The
+%  amsthm package also defines a proof environment that automatically adds a
+%  QED symbol at the end. AMS document classes incorporate the amsthm 
+%  package, so everything described here applies to them as well.
+%
+%  If the amsthm package is used with a non-AMS document class and with the
+%  amsmath package, amsthm must be loaded after amsmath, not before.
+
+%3)amssymb provides an extended symbol collection. For example, after 
+%loading amssymb you have the following additional binary relation symbols:
+%\barwedge, \boxdot, \boxminus, \boxplus, \boxtimes, \Cap, \Cup (and many 
+%more), the arrow \leadsto, and some other symbols such as \Box and 
+%\Diamond. Another useful feature is the \mathbb command to produce 
+%blackboard bold characters.
+
+% Since amssymb internally loads amsfonts, it's enough to load the former.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%---------------------------------------------------------------------------
+% enumerate number per section
+%---------------------------------------------------------------------------
+
+\usepackage{enumitem}
+% Note: This also allows us to do something like this:
+%\begin{enumerate}[label=\FOO*]
+% \alph* = a, \Alph* = A, \roman* = i, ii, etc...
+% Put in parenthesis for parenthesis. I.e.
+% (\alph*) = (a)
+% Label: \alph, \Alph, \arabic, \roman and \Roman
+
+
+%---------------------------------------------------------------------------
+% url, hyperref, bookmark, etc...
+%---------------------------------------------------------------------------
+
+\WarningFilter{hyperref}{You have enabled option `breaklinks'.}
+
+% url is loaded by hyperref, which is loaded by bookmark.
+
+% The command \PassOptionsToPackage (used below) tells LaTeX to behave as 
+% if its options were passed, when it finally loads a package. As you would 
+% expect from its name, \PassOptionsToPackage can deal with a list of 
+% options, just as you would have in the the options brackets of 
+% \usepackage.
+
+% Ordinarily, breaks are not allowed after “-” characters because this leads
+% to confusion. (Is the “-” part of the address or just a hyphen?) The 
+% package option “[hyphens]” allows breaks after explicit hyphen characters.
+% The \url command will never ever hyphenate words.
+% Also can use \path{}
+\PassOptionsToPackage{hyphens,obeyspaces,spaces}{url}
+
+% Allows link text to break across lines; since this cannot be accommodated 
+% in PDF, it is only set true by default if the pdftex driver is used. This
+% makes links on multiple lines into different PDF links to the same target.
+\PassOptionsToPackage{breaklinks=true}{hyperref}
+
+% http://tex.stackexchange.com/questions/167948/package-rerunfilecheck-warning-file-out-has-changed
+% Or add \usepackage{bookmark}. Then a more modern implementation of the 
+% bookmarks managing is used without .out file. The bookmarks are updated 
+% earlier, thus in most cases only one LaTeX run is needed.
+\usepackage{bookmark}
+
+%% breakurl needs hyperref, but hyperref is loaded by bookmark!
+\usepackage[anythingbreaks]{breakurl}
+
+%% Internal links
+\hypersetup{
+colorlinks=true,
+linkcolor=blue,
+filecolor=magenta,      
+urlcolor=cyan,
+citecolor=cyan,
+%pdfborder={0 0 0},      % No borders around internal hyperlinks
+pdftitle={Raymon White Resume},
+pdfauthor={Raymon White} % author
+}
+\urlstyle{same}
+
+
+
+%---------------------------------------------------------------------------
+% graphic, graphicx
+%---------------------------------------------------------------------------
+
+%% This is for includegraphics{}
+% \usepackage{graphics} % Already loaded by graphicsx
+% pdftex (default if compiling with pdflatex), if you are compiling with 
+% pdftex to get a PDF that you will see with any PDF viewer.
+
+% This gets an error, reason is below:
+%\usepackage[pdftex]{graphicx}
+
+% PDFLaTeX does not support EPS files. However, some modern LaTeX 
+% distributions will try to automatically convert it to a PDF image, which 
+% maybe this doesn't work in your case. It would be also possible that the 
+% size information, namely the bounding box, in that EPS file is missing.
+%
+%If you are using latex, i.e. the DVI mode of LaTeX, which supports EPS then
+%you should remove the incorrect pdftex option from the graphicx package. 
+%The packages should be able to figure out the used driver by themselves, so
+%you should avoid such options anyway. If you are using pdflatex then it 
+%would be better to convert the EPS to a PDF file manually, e.g. using the 
+%epstopdf tool (I'm not sure if it comes with the Windows version, but I 
+%think so). You need to change the .eps extension to .pdf then, of course. 
+%You can also drop the extension and LaTeX will look for files with the 
+%given base name with all supported extensions, i.e. \includegraphics{file} 
+%will use file.eps for latex and file.pdf (or file.png, file.jpg) for 
+%pdflatex.
+
+% TL;DR: Take out pdftex, and convert eps to pdf manually (although the
+% engine should do it for us, if required)
+\usepackage{graphicx}
+
+
+
+
+\usepackage{titlesec}
+
+% For lorem ipsum
+\usepackage[english]{babel}
+\usepackage{blindtext}
+% usage:
+%\blindtext
+%\Blindtext
+
+
+
+%\usepackage{setspace}
+% Below are the spacing options.
+%\doublespacing
+%\singlespacing
+%\onehalfspacing
+%\setstretch{1.8}
+
+%\newtheorem*{definition}{Definition}
+%\newtheorem*{example}{Example}
+%\newtheorem*{theorem}{Theorem}
+%\newtheorem*{theorem*}{Theorem}
+
+% This is the standardone inch all around border.
+%\usepackage{fullpage}
+
+% This is what I've made myself - max space used, for Tisseur cw.
+% For most stand alone work, use this one.
+%\setlength{\topmargin}{-1in}
+%\setlength{\textheight}{9.75in}
+%\setlength{\oddsidemargin}{-0.25in}
+%\setlength{\textwidth}{7in}
+
+% This is the geometry package... apparently good!
+\usepackage[left=2cm,top=4cm,right=2cm,a4paper]{geometry}
+\geometry{top=0.7in, bottom=0.7in, left=0.7in, right=0.7in}
+
+\pagenumbering{gobble}
+
+%\lstset{numbers=left, 
+%        stepnumber=2, 
+%        frame=single,
+%        basicstyle=\footnotesize,
+%        showstringspaces=false,
+%        language=C++}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\Large\bfseries\raggedright
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+%Add horizontal line under each section heading
+%\titleformat{\section}
+%  {\normalfont\Large\bfseries}{}{1em}{}[{\titlerule[0.8pt]}]
+
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[2]{
+  \item\small{
+    \textbf{#1}{: #2 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-4pt}}
+
+\renewcommand{\labelitemii}{$\circ$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+\setlength{\parindent}{1em}
+\setlength{\parskip}{1em}
+%\renewcommand{\baselinestretch}{2.0}
+
+
+
+% Underlined and bold and newlined
+% the \phantomsection is for when we use label{rh:foo}
+\DeclareRobustCommand{\rrheaderunderline}[1]{\par\medskip\phantomsection\noindent\textbf{\underline{#1}}\medskip}
+\DeclareRobustCommand{\rrheader}[1]{\par\medskip\phantomsection\noindent{\normalsize\textbf{#1}}\medskip}
+\DeclareRobustCommand{\rrheaderlarge}[1]{\par\medskip\phantomsection\noindent{\large\textbf{#1}}\medskip}
+\DeclareRobustCommand{\rrheaderLarge}[1]{\par\medskip\phantomsection\noindent{\Large\textbf{#1}}\medskip}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%Document begin
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\begin{document}
+
+%-----------HEADING---------------------------------------------------------
+%\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}l}
+%\textbf{\Large Raymon White} & Email: raymonwhite42@gmail.com\\
+%44 Canterbury Court, Gorefield Place, London, NW6 5SX & 
+%Mobile: +4478-5149-9485\\
+%\end{tabular*}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%-----------Summary---------------------------------------------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Summary}
+%
+%Numerical computation PhD graduate with +3 years experience writing
+%numerical modelling software and proficient with C++98/11 and 14.
+
+%\textbf{Notes/Questions:} 
+%\textbf{(1) Note:} I'll write more here targeted
+%to specific job specifications. 
+%%%%
+% FB: Yes, good plan. If you're including a personal profile, it should be
+% very targetted. Personal profiles are not neccessary to include,
+% especially when writing a covering letter as it is the covering letter
+% that is the extended profile.
+
+%\textbf{(2) Question:} Should I take this
+%part our entirely? If I keep it in, should I mentioned that I took a year
+%out to go travelling? I feel that I shouldn't (I've been reading examples
+%online.)
+%%%%FB If you have been travelling, you could say that on a covering letter
+% or include it in an interests section on your CV. What did you do for the
+% year? Were you just travelling or did you do any voluntary work? If you
+% did the latter, include some details on your CV too.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%-----------EDUCATION-------------------------------------------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Wikipedia Article}
+
+\url{https://en.wikipedia.org/wiki/Schlumberger}
+
+Schlumberger Limited is the world's largest oilfield services company.
+Schlumberger employs approximately \textbf{100,000 people} representing more
+than 140 nationalities working in more than 85 countries. Schlumberger has
+four principal executive offices located in \textbf{Paris},
+\textbf{Houston}, \textbf{London}, and \textbf{the Hague} (a city on the
+western coast of the Netherlands and the capital of the province of South
+Holland.).
+
+Oilfield service companies--companies which provide services to the
+petroleum exploration and production industry but do not typically produce
+petroleum themselves. 
+
+\textbf{Schlumberger subidiaries:}
+\begin{itemize}[noitemsep,topsep=0pt]
+\item Cameron International: a global provider of pressure control,
+  processing, flow control and compression systems as well as project
+  management and aftermarket services for the \textbf{oil and gas and
+    process industries}.
+\item Geophysical Service (GSI): purpose of using refraction and reflection
+  seismology to explore for petroleum deposits.
+\item Geoservices: an \textbf{upstream} (see below for explanation) oilfield
+  service company founded in 1958 by Gaston Rebilly. It provides a range of
+  skills that help evaluate hydrocarbon reservoirs and optimize field
+  exploration, development and production. Geoservices provides in 3
+  business segments: \textbf{(1)} Mud Logging (World No. 1), \textbf{(2)}
+  Field Surveillance and \textbf{(2)} Well Intervention (World No. 2).
+\item Smith International: Smith International was a Fortune 500 company
+  headquartered in the Greenspoint district and in unincorporated Harris
+  County, Texas. Smith International ceased to exist as an independent
+  company following \textbf{the merger with Schlumberger}. This company
+  supplies products to gas and oil production and exploration companies. The
+  company used to be easily identified by its red \textbf{Sii} logo. The
+  company had recently changed its logo to consist of the word "SMITH" in
+  black capital letters with a green globe.
+\item WesternGeco: WesternGeco is a geophysical services company. It is
+  headquartered in the Schlumberger House on the property of London Gatwick
+  Airport in Crawley, West Sussex, in Greater London. The company provides
+  reservoir imaging, monitoring, and development services. The company, a
+  business segment of Schlumberger, offers 3D and time-lapse seismic
+  surveys, electromagnetic surveys, and multicomponent surveys for
+  delineating prospects and reservoir management. It also provides
+  geophysical, land and transition-zone acquisition, marine acquisition,
+  electromagnetics, and data processing and reservoir seismic services. The
+  company, formerly known as Western Geophysical Company, was founded in
+  1933.
+\end{itemize}
+
+\textbf{Upstream/midstream and downstream:}
+
+The oil and gas industry is usually divided into three major sectors:
+upstream (or \textbf{exploration and production--E\&P}), midstream and
+downstream.
+\begin{itemize}[noitemsep,topsep=0pt]
+\item Upstream: The upstream sector includes searching for potential
+  underground or underwater crude oil and natural gas fields, drilling
+  exploratory wells, and subsequently drilling and operating the wells that
+  recover and bring the crude oil or raw natural gas to the surface.
+  There has been a significant shift toward including unconventional gas as
+  a part of the upstream sector, and corresponding developments in liquefied
+  natural gas (LNG) processing and transport.
+
+  \textbf{Business:} This categorization comes from value chain concepts,
+  even before formal development Value Chain Management: \textbf{Oil Service
+    Company:} A company that provides products and/or services to the oil
+  and gas industry.  Usually a combination of labor, equipment, and/or other
+  support services.  Examples include Baker Hughes, Haliburton, and
+  Schlumberger.
+\item The midstream sector involves the transportation (by pipeline, rail,
+  barge, oil tanker or truck), storage, and wholesale marketing of crude or
+  refined petroleum products. Pipelines and other transport systems can be
+  used to move crude oil from production sites to refineries and deliver the
+  various refined products to \textbf{downstream distributors}. Natural gas
+  pipeline networks aggregate gas from natural gas purification plants and
+  deliver it to \textbf{downstream customers}, such as local utilities.
+
+  The midstream operations are often taken to include some elements of the
+  upstream and downstream sectors. For example, the midstream sector may
+  include natural gas processing plants that purify the raw natural gas as
+  well as removing and producing elemental sulfur and natural gas liquids
+  (NGL) as finished end-products.
+\item The downstream sector is the refining of petroleum crude oil and the
+  processing and purifying of raw natural gas, as well as the marketing
+  and distribution of products derived from crude oil and natural gas. The
+  downstream sector reaches consumers through products such as gasoline or
+  petrol, kerosene, jet fuel, diesel oil, heating oil, fuel oils,
+  lubricants, waxes, asphalt, natural gas, and liquefied petroleum gas (LPG)
+  as well as hundreds of petrochemicals.
+
+  Midstream operations are often included in the downstream category and are
+  considered to be a part of the downstream sector.
+\end{itemize}
+
+Schlumberger was \textbf{founded in 1926} by brothers Conrad and Marcel
+Schlumberger from the Alsace region in France as the Soci\'et\'e de
+prospection \'electrique (French: Electric Prospecting Company). The company
+recorded the first-ever electrical resistivity well log in
+Merkwiller-Pechelbronn, France in 1927. Today Schlumberger supplies the
+petroleum industry with services such as \textbf{seismic acquisition} and
+\textbf{processing}, \textbf{formation evaluation}, \textbf{well testing}
+and \textbf{directional drilling}, \textbf{well cementing} and
+\textbf{stimulation}, \textbf{artificial lift}, \textbf{well completions},
+\textbf{flow assurance} and \textbf{consulting}, and \textbf{software and
+  information management}. The company is also involved in the groundwater
+extraction and carbon capture and storage industries.
+
+The brothers had experience conducting geophysical surveys in countries such
+as Romania, Canada, Serbia, South Africa, the Democratic Republic of the
+Congo and the United States. The new company sold electrical-measurement
+mapping services, and recorded the first-ever electrical resistivity well
+log in Merkwiller-Pechelbronn, France in 1927. The company quickly expanded,
+logging its first well in the U.S. in 1929, in Kern County, California. In
+1935, the Schlumberger Well Surveying Corporation was founded in Houston,
+later evolving into Schlumberger Well Services, and finally Schlumberger
+Wireline \& Testing. Schlumberger invested heavily in research, inaugurating
+the Schlumberger-Doll Research Center in Ridgefield, Connecticut in 1948,
+contributing to the development of a number of new logging tools. In 1956,
+Schlumberger Limited was incorporated as a holding company for all
+Schlumberger businesses, which by now included American testing and
+production company Johnston Testers.
+
+Over the years, Schlumberger continued to expand its operations and
+acquisitions. In \textbf{1960}, Dowell Schlumberger (50\% Schlumberger, 50\%
+Dow Chemical), which specialized in pumping services for the oil industry,
+was formed. In \textbf{1962}, Schlumberger Limited became listed on the New
+York Stock Exchange. That same year, \textbf{Schlumberger purchased
+  Daystrom}, an electronic instruments manufacturer in South Boston,
+Virginia which was \textbf{making furniture by the time the division was
+  sold to Sperry \& Hutchinson in 1971}. Schlumberger purchased 50\% of
+Forex in 1964 and merged it with 50\% of Languedocienne to create the
+Neptune Drilling Company. The first computerized reservoir analysis,
+SARABAND, was introduced in 1970. The remaining 50\% of Forex was acquired
+the following year; Neptune was renamed Forex Neptune Drilling Company. In
+1979, Fairchild Camera and Instrument (including Fairchild Semiconductor)
+became a subsidiary of Schlumberger Limited.
+
+In 1981, Schlumberger established the first international data links with
+e-mail. \textbf{In 1983, Schlumberger opened their Cambridge Research Center
+  in Cambridge, England and in 2012 it was renamed the Schlumberger Gould
+  Research Center after the company's former CEO Andrew Gould.}
+
+The SEDCO drilling rig company and half of Dowell of North America were
+acquired in 1984, resulting in the creation of the Anadrill drilling
+segment, a combination of Dowell and The Analysts' drilling segments. Forex
+Neptune was merged with SEDCO to create the Sedco Forex Drilling Company the
+following year, when Schlumberger purchased Merlin and 50\% of GECO.
+
+In 1987, Schlumberger completed their purchases of Neptune (North America),
+Bosco and Cori (Italy), and Allmess (Germany). That same year, National
+Semiconductor acquired Fairchild Semiconductor from Schlumberger for \$122
+million. In 1991, Schlumberger acquired PRAKLA-SEISMOS, and pioneered the
+use of geosteering to plan the drill path in horizontal wells.
+
+\textbf{Schlumberger acquired software company GeoQuest Systems in 1992.}
+With the purchase came the conversion of SINet to TCP/IP and www capability.
+In the 1990s Schlumberger bought out the petroleum division, AEG meter, and
+ECLIPSE reservoir study team Intera Technologies Corp. A joint venture
+between Schlumberger and Cable \& Wireless resulted with the creation of
+Omnes, which then handled all of Schlumberger's internal IT business.
+Oilphase and Camco International were also purchased.
+
+\textbf{In 1999, Schlumberger and Smith International created a joint venture, M-I
+L.L.C., the world's largest drilling fluids (or mud) company.} The company
+consists of 60\% Smith International, and 40\% Schlumberger. Since the joint
+venture was prohibited by a 1994 antitrust consent decree barring Smith from
+selling or combining their fluids business with certain other companies,
+including Schlumberger, the U.S. District Court in Washington, D.C. found
+Smith International Inc. and Schlumberger Ltd. guilty of criminal contempt
+and fined each company \$750,000 and placed each company on five years
+probation. Both companies also agreed to pay a total of \$13.1 million,
+representing a full disgorgement of all of the joint venture's profits
+during the time the companies were in contempt.[17]
+
+In 2000, the Geco-Prakla division was merged with Western Geophysical to
+create the seismic contracting company WesternGeco, of which Schlumberger
+held a 70\% stake, the remaining 30\% belonging to competitor Baker Hughes.
+Sedco Forex was spun off, and merged with Transocean Drilling company in
+2000.
+
+In 2001, Schlumberger acquired the IT consultancy company Sema plc for \$5.2
+billion. The company was an Athens 2004 Summer Olympics partner, but
+Schlumberger's venture into IT consultancy did not pay off, and
+divestiture\footnote{the action or process of selling off subsidiary
+  business interests or investments.} of Sema to Atos Origin was completed
+that year for \$1.5 billion. The cards division was divested through an IPO
+to form Axalto, which later merged with Gemplus to form Gemalto, and the
+Messaging Solutions unit was spun off and merged with Taral Networks to form
+Airwide Solutions. In 2003, the Automated Test Equipment group, part of the
+1979 Fairchild Semiconductor acquisition, was spun off to NPTest Holding,
+which later sold it to Credence.
+
+In 2004, Schlumberger Business Consulting was launched. Based in Paris, it
+is the company's management consultancy arm.
+
+In 2005, Schlumberger purchased Waterloo Hydrogeologic, which was followed
+by several other groundwater industry related companies, such as Westbay
+Instruments, and Van Essen Instruments. Also that year, Schlumberger
+relocated its U.S. corporate offices from New York to Houston.
+
+In 2006, Schlumberger purchased the remaining 30\% of WesternGeco from Baker
+Hughes for US\$2.4 billion. Also that year, the Schlumberger-Doll
+Research Center was relocated to a newly built research facility in
+Cambridge, Massachusetts to replace the Ridgefield, Connecticut research
+center. The facility joins the other research centers operated by the
+company in Cambridge, England; Moscow, Russia; Stavanger, Norway; and
+Dhahran, Saudi Arabia.
+
+In 2010, the acquisition of Smith International in an all-stock deal valued
+at \$11.3 billion was announced. The sale price is 45.84-a-share price was
+37.5 percent higher than Smith closing price on 18 February 2010. The deal
+is the biggest acquisition in Schlumberger history. The merger was
+completed on August 27, 2010. Also announced in 2010 were Schlumberger
+plans to acquire Geoservices, a French-based company specializing in energy
+services, in a deal valued at \$1.1 billion, including debt.
+
+In 2014, Schlumberger announced the purchase of the remaining shares of SES
+Holdings Limited (``Saxon''), a Calgary-based provider of international land
+drilling services, from First Reserve and certain members of Saxon
+management. The transaction is subject to customary closing conditions,
+including the receipt of regulatory approvals. Schulmberger had a minority
+share in Saxon previously.
+
+In 2015, Schlumberger was indicted by the US Department of Justice for
+sanction violations of conducting business in Iran and Sudan; the company
+was fined \$233 million, amounting to the largest fine for sanctions to
+date.
+
+Due to a downturn in the global oil \& gas industry in 2015, Schlumberger
+announced 21,000 layoffs accounting for 15\% of their total workforce.
+
+In August 2015, Schlumberger agreed to acquire oilfield equipment
+manufacturer Cameron International for \$14.8 billion.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%-----------EDUCATION-------------------------------------------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Schlumberger Technology}
+
+
+\subsection{From job spec:}
+
+\textbf{Company description:}
+
+Schlumberger (\url{www.slb.com}) is the world's leading supplier of
+technology, integrated project management and information solutions to
+customers working in the oil and gas industry worldwide.  
+
+Schlumberger is leading a digital transformation of the oil and gas industry
+to enhance real-time global collaboration, operational efficiency, and the
+integration of data, expertise, and technology information. Our technology
+services and solutions translate acquired data into useful information that
+improves decision-making--anytime, anywhere.
+
+Our team of software domain experts \textbf{invents}, \textbf{designs}, and
+applies disruptive cutting-edge technologies to enable our customers to
+increase \textbf{reliability}, \textbf{efficiency}, and
+\textbf{integration}. Throughout, we maintain \textbf{agile methodology} and
+\textbf{skilled development processes}.
+
+As a Schlumberger Software Engineer you'll have responsibility
+\textbf{throughout the full development cycle}. You'll apply your skills in
+computer science, engineering, and mathematics to \textbf{design},
+\textbf{develop}, and \textbf{test software}. Whether you're creating new
+products in our transformational programs or enhancing existing ones, you'll
+have the opportunity to listen to what each customer needs and bring all the
+elements together to provide solutions.
+
+Currently, we have the \textbf{fifth largest super computer infrastructure
+  in the world}, comprising more than \textbf{65 petaflops of processing
+  power}. You will join a team of \textbf{software experts} with a variety
+of core competencies such as Internet of things (IoT), user experience (UX),
+data analytics, and web and mobile front-end development. Keeping pace with
+and applying the \textbf{latest digital technology trends} in the oil and
+gas industry will be your main focus.
+
+\textbf{Role Specification:}
+
+A software developer is required to strengthen the \textbf{commercial
+  software development group}. This team works on the modeling of
+\textbf{hydrocarbon reservoirs} and on the \textbf{development of end-user
+  workflows} involving the simulation of production from an oilfield asset.
+The position involves work spanning the whole product development life
+cycle, \textbf{enhancing and extending the functionality of our commercial
+  products}. These products are market leaders with an established
+user-base, and the \textbf{development team has been steadily growing over
+  the past few years}.
+
+The successful applicant will be required to collaborate with other groups,
+both internal and external to the organization; hence a good team worker is
+required for this role. Strong software skills are required to develop high
+quality technical applications.
+
+\textbf{Person Specification:}
+\begin{itemize}%[noitemsep,topsep=0pt]
+\item A proven ability to solve complex mathematical/scientific problems
+\item Mathematical modeling
+\item C++ or related programming language 
+\item Object Oriented Design
+\item Good communication skills
+\end{itemize}
+
+\textbf{Exposure to any of the following would be advantageous:}
+\begin{itemize}%[noitemsep,topsep=0pt]
+\item Commercial software development 
+\item HPC \& Parallel programming
+\item Cross-platform development (Linux and Windows)
+\end{itemize}
+
+Qualifications:
+\begin{itemize}%[noitemsep,topsep=0pt]
+\item BSc/MSc or PhD in Mathematics, Science or Engineering 
+\item Fresh-out or with industry/academic experience
+\end{itemize}
+
+\subsection{From their website: Schlumberger Abingdon Technology Center}
+
+\url{http://www.slb.com/about/rd/technology/abtc.aspx}
+
+Abingdon Technology Center (AbTC) is the Schlumberger \textbf{Center of
+  Excellence for Reservoir Engineering}. It develops software that enables
+oil and gas companies to \textbf{make better decisions for reservoir
+  development}.  \textbf{Simulation} helps \emph{quantify} \textbf{reserves}
+and \textbf{distribution} within the formation rocks and to predict changes
+over the life of the reservoir. \textbf{Production decisions} involve where
+and how to drill and operate wells and how to most safely and efficiently
+bring oil and gas to the surface. Related projects include CO2
+capture-and-storage technology, water management, and reservoir
+geomechanics. Petroleum and reservoir specialists are involved in product
+commercialization, user training as part of Schlumberger Technical Services,
+and worldwide product support. Schlumberger Information Solutions is ISO
+9001:2000-certified.
+
+AbTC works closely with other Schlumberger research and technology centers
+and segments. Its specialists directly support internal and external users
+worldwide and communicate with other support engineers through the
+Schlumberger InTouchSupport.com online support and knowledge management
+system. This global connection can help customers analyze problems
+encountered in the field, identify solutions, and improve future operations.
+
+\rrheader{Employee collaboration and global knowledge sharing}
+
+Through collaboration with universities in the UK, USA, and France, as well
+as an internship program, AbTC promotes relationships with universities
+around the globe. Employees at all levels benefit from a continuous training
+program, tailored career management, extensive electronic library
+facilities, and a global structure that supports knowledge sharing and
+teamwork. Management encourages patent applications, conference
+participation, and journal publications.
+
+
+\subsection{EPMAG: New Technology, M\&A Steer Investment For Schlumberger}
+
+
+\url{https://www.epmag.com/new-technology-ma-steer-investment-schlumberger-846536#p=full}
+
+By Velda Addison, Hart Energy Monday, April 25, 2016--1:47pm
+
+Despite double-digit revenue declines in just about all parts of the world,
+Schlumberger (NYSE: SLB) is \textbf{still adding to its technological
+  arsenal} with new drilling and hydraulic fracturing systems in the works
+while investing in \textbf{niche technologies and multiclient seismic
+  surveys}.
+
+Hopes are that its offerings coupled with a broader global reach and other
+strategic moves will create the leverage needed to grow revenue market share
+among other goals, according to Schlumberger executives speaking during an
+April 22 conference call on the company's first-quarter 2016 results.
+
+``So far in this downturn, we have closed our largest ever acquisition, made
+a series of smaller but still significant investments in \textbf{specific
+  technology niches}, and invested in \textbf{integrated services and
+  projects} that will boost our financial performance going forward,''
+Schlumberger CEO Paal Kibsgaard said April during the conference call.
+
+But if all goes as planned, in 2017 Schlumberger will have also produced a
+new hydraulic fracturing system, which Kibsgaard said will ``span the
+complete range of surface components, such as \textbf{Cameron's CAMSHALE
+  pressure control and wellhead systems} together with our own perforating,
+fracturing, cleanup, and flowback services, as well as our latest downhole
+completion technology and fracturing fluids.'' Plus, with newly acquired
+Cameron International Corp.---following the merger's closure April
+1--Schlumberger plans to have its ``land drilling system of the future''
+available commercially.
+
+The system will integrate purpose-built surface and downhole hardware into a
+drilling system managed by \textbf{optimized software}, targeting
+operational efficiency gains. The system, Kibsgaard said, will draw on the
+rig design acquisition and rig manufacturing joint venture made in 2015.
+Plans include having five engineering prototypes of the new system ready for
+field testing in Ecuador this year.
+
+Schlumberger's continued drive comes as the oil and gas market endures tough
+times---low commodity prices brought on by a supply-demand imbalance that
+has, in turn, sucked dollars from profit margins and hundreds of thousands
+of jobs off payrolls and driven most, \textbf{if not all, to seek the
+  benefits of technology}.
+
+First-quarter 2016 revenue plummeted 36\% year-on-year for Schlumberger to
+\$6.5 billion. The figure was down 16\% from the previous quarter. In North
+America, operating expenses came in higher than the cost of goods sold,
+sending the company's pretax operating income into negative territory as the
+its overall headcount shrunk by 8,000{} in the first quarter.
+
+Schlumberger also shaved \$400 million off its initial capex guidance. The 
+budget is now about \$2 billion, which includes funds for the two new 
+systems.
+
+``Our ability to invest through this unprecedented industry downturn on the 
+back of our strong cash flow and balance sheet enables us to capitalize on 
+the current market conditions to gain significant relative strength compared 
+to our surroundings,'' Kibsgaard said.
+
+Other investment areas highlighted by Kibsgaard include:
+
+\begin{itemize}%[noitemsep,topsep=0pt]
+\item Multiclient seismic surveys. Focus is currently on Mexico's Campeche
+  Basin and offshore Mozambique and South Africa. Schlumberger currently has
+  eight 3-D vessels active;
+\item Production management. Schlumberger Production Management (SPM)
+  continues work to rejuvenate the Shushufindi oil field in Ecuador and has
+  started a new SPM project at the Auca Field, also in Ecuador, and
+\item M\&A investment. In addition to completing its nearly \$15 billion
+  Cameron deal, Schlumberger acquired two U.K.-based companies in
+  first-quarter 2016---the Meta Downhole Ltd. engineering and service
+  company that offers downhole metal-to-metal isolation technology in well
+  integrity applications and Asset Development \& Improvement Ltd., an oil
+  and gas consultancy. The acquisitions were announced in March.
+\end{itemize}
+
+But attention on investment does not mean Schlumberger as changed its view
+of the oil markets.
+
+The company expects market conditions to worsen in the second quarter,
+Kibsgaard said. However, for what it's worth, he added that E\&P investment
+cuts are already so severe that they can ``only accelerate production
+decline and the consequent upward movement in oil price.''
+
+Kibsgaard added, ``We remain convinced that the tightening of the supply
+(and) demand balance is well underway. And while the operating environment
+remains tough, the market presents a range of opportunities which we will
+continue to actively pursue.''
+
+
+\subsection{Fortune: Schlumberger heats up Big Oil's tech war}
+
+CYRUS SANATI September 8, 2015
+
+\url{http://fortune.com/2015/09/08/big-oil-schlumberger/}
+
+The technology war bubbling inside the energy industry is starting to heat
+up.
+
+Schlumberger's recent acquisition of oilfield equipment manufacturer Cameron 
+International for \$15 billion is the latest in a string of high-profile 
+mergers in the energy space, such as Halliburton's pending purchase of Baker
+Hughes, in which technology, not just the oil price, was one of the major 
+motivating factors behind the deal.
+
+The Cameron deal centers on \textbf{Schlumberger's desire to create a
+  proprietary technology} platform to standardize the disparate services and
+equipment along the energy value chain. The company hopes its new technology
+ecosystem will help it win new customers by offering turnkey drilling
+solutions and retaining the old ones by locking them into a closed system.
+
+Much has been said about how advances in fracking ``technology'' paved the
+way for the shale oil boom in the U.S. of the last few years. But it isn't
+as if there was anything new or particularly novel about fracking; indeed,
+the practice (which basically consists of shooting liquid underground to
+break up rock beds) has been around for decades. No, it was high oil prices
+that allowed fracked wells to profitably produce oil and gas in places where
+it was once cost-prohibitive.
+
+During that time, producers and the wildcatters drilling the wells got rich,
+but so did the big oilfield services companies, such as Schlumberger (SLB,
++0.08\%), Halliburton (HAL, +1.28\%), and Baker Hughes (BHI, +0.00\%), along
+with equipment manufacturers and drillers including Cameron (CAM, +0.00\%),
+Wood Group, FMC Technologies (FTI, +1.09\%), National-Oilwell Varco (NOV,
++0.18\%), and Dril-Quip (DRQ, +0.74\%).
+
+But as oil prices weakened over the last year, so too has demand for
+oilfield services and equipment. It is now cost-prohibitive to drill in many
+locations, especially for wells operating offshore. When oil was well over
+\$100 a barrel, oilfield services, equipment, and rigs were in short supply
+as producers bid up their prices. Now service providers are fighting to win
+contracts, and that translates to \textbf{lower prices, smaller margins, and
+  greater uncertainty for their sector}.
+
+But while a few companies have gone under, most are still up and pumping
+away. That's because producers hedged or sold their production forward at
+higher prices, thus allowing them to preserve fat margins in a low oil price
+environment. Oilfield service providers have also lowered their prices to
+match falling oil. Remember last fall when industry watchers were claiming
+that U.S. producers needed oil to be around \$80 to break even? Well, that
+was only true because the cost to drill was so ridiculously high. But with
+service providers and equipment manufacturers lowering their prices,
+producers were able to keep drilling right-side up.
+
+This won't last forever. Producers will eventually start to see their hedges
+roll off, leaving them totally exposed to the weak oil price. To continue
+drilling, \textbf{they'll need even greater discounts from their buddies in
+  oilfield services}. That means lower margins and less profit, and in many
+cases, it means operating at a loss.
+
+Oilfield service providers have been prepping for this scenario for the
+better part of a year. Hiring has stopped, bonuses and salaries have been
+cut, jobs have been eliminated, and fancy perks, like trips on private
+planes, have been discouraged. \textbf{\emph{But being the cheapest operator
+    only goes so far---you need to give your clients a little something
+    extra---something they can't get from the other guy}}.
+
+Schlumberger believes that little something extra will take the form of what
+the company is calling ``\textbf{\emph{pore-to-pipeline}}'' coverage for
+operators. This is where Cameron comes in. As a provider of oilfield
+equipment, Cameron will provide the parts needed for Schlumberger to offer
+this new comprehensive coverage. The goal is to lower the cost and
+complications associated with drilling, providing clients with greater value
+and less headache.
+
+But it's not just about eliminating a middleman in the oil services value
+chain. Sure, there are cost savings to be had here, but that's not enough to
+move the needle. \textbf{\emph{The real value is in the technology behind
+    the integration}}.
+
+\textbf{\emph{Computer engineers inside Schlumberger, who did not wish to be
+    named as they are not authorized to speak to the media, tell Fortune
+    that the company has been busy designing a proprietary operating system
+    that will bring all the disparate parts of the oil and gas value chain
+    onto a single technology platform.}} (DELFI?) This new operating system
+will be able to analyze everything happening on a rig in real time, boosting
+both efficiency and safety. It also serves to lock customers into a single
+ecosystem that the company hopes will act as an incentive to use
+Schlumberger services and (now) equipment for all their drilling needs.
+
+``It is similar to an operating system used on your mobile phone,'' Doug
+Sheridan, the founder of EnergyPoint Research, which conducts satisfaction
+surveys, ratings, and reports for the energy industry, tells Fortune. ``The
+question is whether Schlumberger will make this system open source, like
+Google's Android, or closed, like Apple's iOS''.
+
+A lack of technology standardization was one of the reasons behind the
+Deepwater Horizon disaster in 2010. The U.S. Government concluded that the
+explosion on the rig, which killed 11 workers and caused millions of barrels
+of oil to spew into the Gulf of Mexico, was due to a combination of six
+operations, tests, and equipment failures. Such a catastrophic failure
+across the board may have been noticed by engineers well in advance if all
+the disparate components on the rig were actually able to talk to each
+other.
+
+So can Schlumberger sell customers on the benefits of its new ecosystem, or
+is its single platform a bad bet that customers will change the way they do
+business? Old-school operators in the energy space are all about going with
+``the best in breed'' equipment and service providers. They have deep
+relationships with salesmen in certain companies and tend to be very loyal
+to them, so it will be hard to sell many of them on the idea of buying from
+just one source.
+
+But the benefits of having all (or most) of your equipment operate on a
+single (relatively) easy-to-use platform may outweigh the marginal benefit
+of going with the best in breed for every piece of equipment on a rig.
+National oil companies, which usually don't have a clue about what they're
+doing, could benefit greatly from such a package deal and might actually
+even pay a premium for it.
+
+Schlumberger hopes to win a great deal of business by offering bundled
+service packages, according to people with knowledge of the company's plans.
+This will allow it to charge a premium for some services and offer discounts
+on others. The question then is, \textbf{\emph{How good will this platform
+    be}}, and can it live up to the safety and efficiency expectations of
+the market? We probably won't have the answer in the next few months or even
+the next year. It is clearly a long-term plan, which will take time to
+execute. But once the system goes live, it may be unstoppable.
+
+\subsection{DELFI}
+
+\url{https://www.software.slb.com/delfi}
+
+\rrheader{A new E\&P environment for the evolving world}
+
+Market dynamics have challenged the oil and gas industry to evolve. Digital
+technology now stands to bring its own disruption to our industry. It is
+fundamentally changing how we work---to enhance performance and enable
+unmatched value creation along the way.
+
+Schlumberger is delivering the \textbf{DELFI cognitive E\&P environment} for
+this evolving world. It is a multidimensional environment that unites
+planning and operations. Bringing together advances in technical disciplines
+such as \textbf{artificial intelligence}, \textbf{data analytics}, and
+\textbf{automation}---underpinned by decades of unrivaled domain
+knowledge---the result is an E\&P experience like no other.
+
+\rrheader{Everything working together, continuously}
+
+The DELFI environment defines a new standard in cross-discipline
+collaboration. For the first time in one place, users can see and understand
+the connections and dynamic effects from exploration to abandonment. More
+than individuals collaborating, the DELFI environment is everything working
+together continuously: teams, systems, software, legacy data, and live
+inputs---all feeding into a unified environment that grows to become greater
+than the sum of its parts.
+
+The environment amplifies the individual capabilities and expertise of
+people working at each stage of the hydrocarbon life cycle. Whether
+explorationist, driller, or production engineer, the DELFI environment
+augments every connection and interaction, enabling you to arrive at better
+outcomes sooner.
+
+\rrheader{Built on deep science to automate and accelerate complex
+  functions}
+
+At its heart, the DELFI environment utilizes powerful software built on deep
+science to automate and accelerate complex functions such as modeling,
+simulation, analysis, and forecasting. These advanced computational
+capabilities have been developed using insights from lab and field
+measurements, drawing on datasets across a range of diverse sources from
+flow assurance studies to fiscal libraries. It is this scientific dedication
+that ensures the engines driving the environment will always be
+fit-for-purpose and best-in-class.
+
+Trusted to solve the industry's most complex challenges, the DELFI cognitive
+E\&P environment is supported by the collective knowledge of the world's
+largest body of petrotechnical experts. Now the DELFI environment's
+cognitive approach amplifies the capabilities of every expert; enabling you
+to automate tasks, use learning systems, interrogate richer data sources,
+and deliver better and faster decisions.
+
+\rrheader{Why the DELFI environment?}
+
+``If you want your people to work in one space, if you want limitless
+collaboration, if you want to use your own IP, if you want to benefit from
+all the best-in-class technology in the industry---then go to the DELFI
+environment.''
+
+
+
+\section{Why I want to work at Schlumberger}
+
+
+%%% My own:
+Being the world's largest oilfield service company, Schlumberger will offer
+lots of challengers and therefore opportunities for me to develop
+professionally. But what attracted me to Schlumberger the most is the fact
+that even during a downturn in the global oil \& gas industry, Schlumberger
+continued to invest in technology.
+
+This shows foresight and this is what will give Schlumberger a competitive
+edge, as exploiting new technology is what will shorten the project time and
+lower cost for our costumers. For example, like the DELFI cognitive E\&P
+environment which provides a unified and simplistic technology solution
+cross exploration and production teams.
+
+This technology opens up opportunities to work on big data analytics,
+machine learning and high performance computing, possibly combining all
+three. These are all areas which I am interested in and I hope to have a
+chance to work with cutting edge technology and interesting real-world
+engineering problems.
+
+The ability to innovate through technology is what sets Schlumberger apart
+from the competition, and this is what I want to be a part of, this is what
+I want to contribute to, this is why I want to work at Schlumberger.
+
+
+\section{What can I offer Schlumberger}
+ 
+\begin{itemize}%[noitemsep,topsep=0pt]
+\item I have a proven ability to solve complex mathematical/scientific 
+  problems, as evident during my PhD project.
+\item I have exposure to mathematical modeling
+\item I am proficient with C++ 98/11 and 14.
+\item I am aware of the principles of Object Oriented Design: SOLID
+  \begin{itemize}%[noitemsep,topsep=0pt]
+  \item \textbf{Single responsibility principle:} a class should have only a
+    single responsibility (i.e. changes to only one part of the software's
+    specification should be able to affect the specification of the class).
+  \item \textbf{Open/closed principle:} ``software entities ... should be
+    open for extension, but closed for modification.''
+  \item \textbf{Liskov substitution principle:} ``objects in a program
+    should be replaceable with instances of their subtypes without altering
+    the correctness of that program.'' See also design by contract.
+  \item \textbf{Interface segregation principle:} ``many client-specific
+    interfaces are better than one general-purpose interface.''
+  \item \textbf{Dpendency inverse principle:} one should “depend upon
+    abstractions, not concretions.
+  \end{itemize}
+\item Good communication skills
+\end{itemize}
+
+
+
+
+
+ 
+ \end{document}

@@ -1,0 +1,284 @@
+%%% Use:
+% All mathematical vectors are bold \mathvec[]
+% All unit vectors have a hat on them \unitvec[]
+%
+% Predefined symbols (do not use directly)
+% Normal vector n
+% time t, t^{i}, where i is a step in time.
+% tangent t, t_{i}
+% fluid traction, \uptau
+% stress tensor, \tau
+%
+% USE:
+% \rrrunitnorm - bold n
+% \rrrunitnorm[i] - n_i (component of unit normal)
+%
+% \rrrtime - just t
+% \rrrtime[i] - t^{i}
+% 
+% \rrrtang - bold t
+% \rrrtang[i] - t_{i}, a component of bold t
+%   If we have two tangent vectors when we must do
+%   \rrrtang[]_{ij}
+%
+% \rrrftraction - bold \uptau
+% \rrrftraction[i] - \uptau_{i}, a component of \rrrftraction
+%
+% \rrrstresstensor - bold \tau
+% \rrrstresstensor[i] - \tau_{i}, a component of \rrrstresstensor
+%
+%%%%%
+% 
+% The rest of the alphabet is coded as
+% \rrrmathvX - bold X, lower case (all vectors are lower case)
+% \rrrmathvX[i] - X_{i}, component of X
+%
+%%%%
+%
+% \rrrmathvzero - bold 0
+%
+%
+%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Packages required
+
+\usepackage{upgreek} % For uptau, used for tangent vectors
+\usepackage{bm} % Bold maths symbols
+\usepackage{xifthen}% provides \isempty test, this is used for optional arg.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%% Maths vectors, these are bold.
+\newcommand{\mathvec}[1]{\bm{#1}}
+\newcommand{\unitvec}[1]{\hat{#1}}
+
+
+% Symbols used, this is the basic symbol, should not be used like this.
+\newcommand{\normalsym}{n} % Normal vector is lower case n
+\newcommand{\timesym}{t} % Time
+\newcommand{\tangentsym}{t} % Tangent, same as time.
+\newcommand{\fluidtractionsym}{\uptau} % Needs upgreek package
+\newcommand{\stresstensorsym}{\tau}
+
+
+% Do the tangent component/vector requires package xifthen
+\newcommand{\rrrunitnorm}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\unitvec{\mathvec{\normalsym}}}% if #1 is empty, is a vector, bold it.
+    {\unitvec{\normalsym}_{#1}}% if #1 is not empty, is component form.
+}
+
+% Do the time component/vector requires package xifthen
+\newcommand{\rrrtime}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\timesym}% if #1 is empty, is just t
+    {\timesym^{#1}}% if #1 is not empty, is component
+}
+
+% Do the tangent component/vector requires package xifthen
+\newcommand{\rrrtang}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{\tangentsym}}% if #1 is empty, is just t
+    {\tangentsym_{#1}}% if #1 is not empty, is component
+}
+
+% Do the tangent component/vector requires package xifthen
+\newcommand{\rrrunittang}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\unitvec{\mathvec{\tangentsym}}}% if #1 is empty, is just t
+    {\unitvec{\tangentsym}_{#1}}% if #1 is not empty, is component
+}
+
+% Do the traction component/vector requires package xifthen
+\newcommand{\rrrftraction}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{\fluidtractionsym}}% if #1 is empty, is just t
+    {\fluidtractionsym_{#1}}% if #1 is not empty, is component
+}
+
+% Do the traction component/vector requires package xifthen
+\newcommand{\rrrstresstensor}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{\stresstensorsym}}% if #1 is empty, is just t
+    {\stresstensorsym_{#1}}% if #1 is not empty, is component
+}
+
+%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%% Now do the alphabet
+
+\newcommand{\rrrmathva}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{a}}% if #1 is empty, is just t
+    {a_{#1}}% if #1 is not empty, is component
+}
+
+\newcommand{\rrrmathvb}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{b}}% if #1 is empty, is just t
+    {b_{#1}}% if #1 is not empty, is component
+}
+
+
+\newcommand{\rrrmathvc}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{c}}% if #1 is empty, is just t
+    {c_{#1}}% if #1 is not empty, is component
+}
+
+
+\newcommand{\rrrmathvd}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{d}}% if #1 is empty, is just t
+    {d_{#1}}% if #1 is not empty, is component
+}
+
+
+\newcommand{\rrrmathve}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{e}}% if #1 is empty, is just t
+    {e_{#1}}% if #1 is not empty, is component
+}
+
+\newcommand{\rrrmathvf}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{f}}% if #1 is empty, is just t
+    {f_{#1}}% if #1 is not empty, is component
+}
+
+\newcommand{\rrrmathvg}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{g}}% if #1 is empty, is just t
+    {g_{#1}}% if #1 is not empty, is component
+}
+
+\newcommand{\rrrmathvh}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{h}}% if #1 is empty, is just t
+    {h_{#1}}% if #1 is not empty, is component
+}
+
+\newcommand{\rrrmathvi}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{i}}% if #1 is empty, is just t
+    {i_{#1}}% if #1 is not empty, is component
+}
+
+\newcommand{\rrrmathvj}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{j}}% if #1 is empty, is just t
+    {j_{#1}}% if #1 is not empty, is component
+}
+
+\newcommand{\rrrmathvk}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{k}}% if #1 is empty, is just t
+    {k_{#1}}% if #1 is not empty, is component
+}
+
+\newcommand{\rrrmathvl}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{l}}% if #1 is empty, is just t
+    {l_{#1}}% if #1 is not empty, is component
+}
+
+\newcommand{\rrrmathvm}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{m}}% if #1 is empty, is just t
+    {m_{#1}}% if #1 is not empty, is component
+}
+
+\newcommand{\rrrmathvn}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{n}}% if #1 is empty, is just t
+    {n_{#1}}% if #1 is not empty, is component
+}
+
+\newcommand{\rrrmathvo}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{o}}% if #1 is empty, is just t
+    {o_{#1}}% if #1 is not empty, is component
+}
+
+\newcommand{\rrrmathvp}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{p}}% if #1 is empty, is just t
+    {p_{#1}}% if #1 is not empty, is component
+}
+
+\newcommand{\rrrmathvq}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{q}}% if #1 is empty, is just t
+    {q_{#1}}% if #1 is not empty, is component
+}
+
+\newcommand{\rrrmathvr}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{r}}% if #1 is empty, is just t
+    {r_{#1}}% if #1 is not empty, is component
+}
+
+\newcommand{\rrrmathvs}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{s}}% if #1 is empty, is just t
+    {s_{#1}}% if #1 is not empty, is component
+}
+
+\newcommand{\rrrmathvt}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{t}}% if #1 is empty, is just t
+    {t_{#1}}% if #1 is not empty, is component
+}
+
+\newcommand{\rrrmathvu}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{u}}% if #1 is empty, is just t
+    {u_{#1}}% if #1 is not empty, is component
+}
+
+\newcommand{\rrrmathvv}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{v}}% if #1 is empty, is just t
+    {v_{#1}}% if #1 is not empty, is component
+}
+
+\newcommand{\rrrmathvw}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{w}}% if #1 is empty, is just t
+    {w_{#1}}% if #1 is not empty, is component
+}
+
+\newcommand{\rrrmathvx}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{x}}% if #1 is empty, is just t
+    {x_{#1}}% if #1 is not empty, is component
+}
+
+\newcommand{\rrrmathvy}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{y}}% if #1 is empty, is just t
+    {y_{#1}}% if #1 is not empty, is component
+}
+
+\newcommand{\rrrmathvz}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\mathvec{z}}% if #1 is empty, is just t
+    {z_{#1}}% if #1 is not empty, is component
+}
+
+\newcommand{\rrrmathvzero}{\mathvec{0}}
+
+
+
+

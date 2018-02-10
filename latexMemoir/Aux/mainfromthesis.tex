@@ -1,0 +1,330 @@
+%\documentclass[12pt,a4paper]{report}
+%\documentclass[12pt,twoside]{muthesis}
+\documentclass[12pt]{muthesis}
+
+%%% Update mendeley references
+\immediate\write18{./Bin/update_mendeley_ref.sh}
+
+%%% Generate the word count.
+%\immediate\write18{./Bin/runtexcount.sh > ./Temp/texcountoutput.tex}
+
+
+\input{loadpackages}
+
+
+% Add bibtex files
+\addbibresource{Bibliographies/library.bib}
+\addbibresource{Bibliographies/website_ref.bib}
+
+% Change this for autoref
+%\renewcommand{\chapterautorefname}{Chapter}
+%\renewcommand{\figurename}{Figure}
+%\renewcommand{\tablename}{Table}
+%\renewcommand{\partname}{Part}
+%\renewcommand{\appendixname}{Appendix}
+%\equationname	
+%Equation
+%\Itemname	
+%item
+%\chaptername	
+%chapter
+%\sectionname	
+%section
+%\subsectionname	
+%subsection
+%\subsubsectionname	
+%subsubsection
+%\paragraphname	
+%paragraph
+%\Hfootnotename	
+%footnote
+%\AMSname	
+%Equation
+%\theoremname	
+%Theorem
+%\page	
+%page
+\makenomenclature
+\DeclareMathOperator*{\Ext}{Ext. }
+
+%\usepackage[bottom]
+
+% Floats with more than 80% will get own page. The default is 0.6
+\renewcommand{\floatpagefraction}{.8}
+
+% Below are the spacing options.
+%\doublespacing
+%\singlespacing
+%\onehalfspacing
+%\setstretch{1.8}
+
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{example}{Example}[section]
+%\newmdtheoremenv{example}{Example}[chapter]
+\newtheorem{theorem}{Theorem}[chapter]
+%\newtheorem*{remark}{Remark}
+\newtheorem{remark}{Remark}[section]
+%\newtheorem{theorem*}{Theorem}
+
+
+\input{AuxTex/newcommandglobal}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Colours for processors (ranks)
+% r - rank, 
+% followed by numbers, zero, one, two, three
+% followed by the colour.
+\colorlet{rzerored}{red!60}
+\colorlet{roneblue}{blue!60}
+\colorlet{rtwogreen}{green!60}
+\colorlet{rthreeyellow}{yellow!60}
+
+
+
+
+%\renewcommand\thesubfigure{(\alph{subfigure})}
+
+%\makeatletter
+%\let\latex@xfloat=\@xfloat
+%\def\@xfloat #1[#2]{%
+%  \latex@xfloat #1[#2]%
+%  \def\baselinestretch{1}
+%  \@normalsize\normalsize
+%  \normalsize
+%}
+%\makeatother
+
+% This is the standardone inch all around border.
+%\usepackage{fullpage}
+
+% This is what I've made myself - max space used, for Tisseur cw.
+% For most stand alone work, use this one.
+%\setlength{\abovecaptionskip}{5pt}
+%\setlength{\belowcaptionskip}{20pt}
+%\setlength{\topmargin}{-1in}
+%\setlength{\textheight}{9.75in}
+%\setlength{\oddsidemargin}{-0.25in}
+%\setlength{\textwidth}{7in}
+
+% This is the geometry package... apparently good!
+%\usepackage[left=2cm,top=4cm,right=2cm]{geometry}
+%\usepackage[a4paper]{geometry}
+%\geometry{top=1.0in, bottom=1.0in, left=1.6in, right=1.0in}
+
+%\setlength{\abovecaptionskip}{-1pt} % required for picture captions
+
+%\lstset{%
+%basicstyle=\linespread{0.8}\footnotesize,
+%captionpos=b,
+%numbers=left, 
+%stepnumber=2, 
+%frame=single,
+%showstringspaces=false,
+%language=C++}
+%%aboveskip=1em}
+%%belowskip=-1.25em}
+
+
+
+\input{AuxTex/maths_symbols.tex}
+
+
+% We hyphenate texttt, this is for long function names (i.e.
+% BlockPreconditioners)
+\DeclareFontFamily{\encodingdefault}{\ttdefault}{\hyphenchar\font=`\-}
+
+
+%\usepackage{everysel}
+%\renewcommand*\familydefault{\ttdefault}
+%\EverySelectfont{%
+%\fontdimen2\font=0.4em% interword space
+%\fontdimen3\font=0.2em% interword stretch
+%\fontdimen4\font=0.1em% interword shrink
+%\fontdimen7\font=0.1em% extra space
+%\hyphenchar\font=`\-% to allow hyphenation
+%}
+
+%\newcommand*\justify{%
+%  \fontdimen2\font=0.4em% interword space
+%  \fontdimen3\font=0.2em% interword stretch
+%  \fontdimen4\font=0.1em% interword shrink
+%  \fontdimen7\font=0.1em% extra space
+%  \hyphenchar\font=`\-% allowing hyphenation
+%}
+
+\renewenvironment{proof}{{\bfseries Proof}}{\qed}
+
+\newcommand\T{\rule{0pt}{2.6ex}}       % Top strut
+\newcommand\B{\rule[-1.2ex]{0pt}{0pt}} % Bottom strut
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other stuff, like notes to Milan, etc...
+%\newcommand{\bmilnotes}[1]{\textbf{[\#\#\#\#\# Begin `Notes to Milan':
+%    \#\#\#\#\#}
+%
+%#1
+%
+%\textbf{\#\#\#\#\# End `Notes to Milan' \#\#\#\#\#]}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\title{Ray's Notes on C++}
+\author{Raymon White}
+% Faculty of Life Sciences people should comment the next line out
+%\school{Computer Science}
+%\faculty{Engineering and Physical Sciences}
+
+%% NOTE: the next line assumes that runtexcount.sh is correct.
+%\input{./Temp/texcountoutput.tex}
+%\def\wordcount{69422}
+
+
+% Uncomment the line below to suppress the `List of Tables' page (optional)
+\tablespagefalse
+
+% Uncomment the line below to suppress the `List of Figures' page (optional)
+\figurespagefalse
+
+% Uncomment the line below to use a customised Declaration statement
+%\def\declaration{Some declaration.}
+
+
+\beforeabstract
+
+%\input{Contents/abstract.tex}
+
+%\afterabstract
+
+
+% The next part is optional; however it is a good place to thank your
+% supervisor and the people responsible for providing computer support ;-)
+%\prefacesection{Acknowledgements}
+
+
+%\input{Contents/acknowledgement}
+
+% The next line is NOT optional and MUST appear
+\afterpreface
+
+%\input{titlepage}
+%\thispagestyle{empty}
+
+%\pagestyle{plain}
+%\pagenumbering{arabic}
+%\setcounter{page}{2}
+
+%\tableofcontents
+%\listoffigures
+%\listoftables
+%\listofalgorithms
+
+
+%\chapter*{ABSTRACT}
+%\addcontentsline{toc}{chapter}{ABSTRACT}
+%\input{abstract}
+
+%\chapter*{DECLARATION}
+%\addcontentsline{toc}{chapter}{DECLARATION}
+%\input{declaration}
+
+%\chapter*{COPYRIGHT STATEMENT}
+%\addcontentsline{toc}{chapter}{COPYRIGHT STATEMENT}
+%\input{copywritestatement}
+
+%\chapter*{ACKNOWLEDGEMENT}
+%\addcontentsline{toc}{chapter}{ACKNOWLEDGEMENTS}
+%\input{acknowledgement}
+
+
+\chapter{Templates \label{chap:cpptemplates}}
+\input{cpptemplates}
+
+
+\chapter{Miscellaneous \label{chap:cppmiscellaneous}}
+\input{cppmiscellaneous}
+
+\chapter{C++ Todo \label{chap:cpptodo}}
+\input{cpptodo}
+
+%\chapter{Introduction \label{chap:introduction}}
+%\input{Contents/introduction}
+
+%\chapter{The Incompressible Navier-Stokes Equations 
+%  \label{chap:navierstokesequations}}
+%\input{Contents/navierstokesequations}
+
+%\chapter{Solution of Sparse Linear Systems
+%  \label{chap:solutionoflinearsystems}}
+%\input{Contents/solutionoflinearsystems}
+
+% NOTE: this is good for long Chapter names
+%\chapter[medium-length title for TOC, if wanted]{full title name}
+%\chaptermark{short title for running headers}
+
+%\chapter{Preconditioning of the Constrained Navier-Stokes Equations 
+%  \label{chap:constraintprec}}
+%\chaptermark{Constrained Navier-Stokes Equations}
+%\input{Contents/constraintpreconditioning}
+
+
+% Use this for the below:
+% NOTE: this is good for long Chapter names
+%\chapter[medium-length title for TOC, if wanted]{full title name}
+%\chaptermark{short title for running headers}
+%\chapter{The Development of \oomphlib{}'s 
+%         Parallel Block Preconditioning Framework 
+%         \label{chap:devblockprecframework}}
+%\chaptermark{Parallel Block Preconditioning Framework}
+%\input{Contents/devprecframework}
+
+
+%\chapter{Numerical Evaluation\label{chap:numericalresults}}
+%\input{Contents/numerical_results}
+
+%\chapter{Parallel Performance Evaluation
+%  \label{chap:parallelperformance}}
+%\input{Contents/parallelperformance}
+
+%\chapter{Conclusions and Future Work\label{chap:conclusion}}
+%\input{Contents/conclusion}
+
+%\thispagestyle{empty}\newpage
+
+%\addtocontents{toc}{\protect\contentsline{chapter}{Appendices:}{}}
+%\appendix
+%\chapter{Result Tables}
+%\label{chap:resulttables}
+%\input{appendixtableresults}
+%\chapter{Implementation code}
+%\label{chap:implementationcode}
+%\input{appendixcode}
+
+%\appendix
+
+%\chapter{Supporting Numerical Results
+%         \label{append:supporting_numerical_results}}
+%\input{Contents/append_lgr_square}
+
+%\begin{thebibliography}{999}
+
+%\defbibnote{myprenote}{Numbers in brackets following a reference give page numbers where the reference is cited.}
+% Does what it says (using biblatex package)
+%\printbibliography[prenote=myprenote]
+%\printbibliography
+
+\begingroup
+%\setstretch{0.9}
+\sloppy
+\singlespacing
+\setlength\bibitemsep{1pt}
+\printbibliography
+\endgroup
+
+
+\end{document}

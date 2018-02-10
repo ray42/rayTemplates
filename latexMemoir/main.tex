@@ -1,0 +1,135 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% DOCUMENTCLASS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[
+a4paper, % Stock and paper size.
+12pt, % Type size.
+% article,
+% oneside, 
+onecolumn, % Only one column of text on a page.
+% openright, % Each chapter will start on a recto page.
+% openleft, % Each chapter will start on a verso page.
+openany, % A chapter may start on either a recto or verso page.
+%oldfontcommands,
+]{memoir}
+
+% This file is a symbolic link to rayLatexAux/memoirPreamble.tex
+\input{memoirPreamble}
+
+%% Internal links
+\hypersetup{
+colorlinks=true,
+linkcolor=blue,
+filecolor=magenta,      
+urlcolor=cyan,
+citecolor=cyan,
+%pdfborder={0 0 0},      % No borders around internal hyperlinks
+pdftitle={RNO Fo-short},
+pdfauthor={Ray White} % author
+}
+\urlstyle{same}
+
+% Add bibtex files
+\addbibresource{Bibliographies/library.bib}
+\addbibresource{Bibliographies/website_ref.bib}
+
+
+%%% THE DOCUMENT
+%%% Where all the important stuff is included!
+%%%-------------------------------------------------------------------------
+
+\author{Raymon White}
+\title{Ray's Notes On \\ 
+       Foo-long\\
+       (RNO-Fo-short)}
+
+
+%%% NOTE: If re-compiling all, remember to comment out the silence warning
+%%% at the top, for missing labels.
+
+%\includeonly{Contents/ch08CmplTmPrgrmmng}
+
+\begin{document}
+
+%---------------------------------------------------------------------------
+% Other settings
+%---------------------------------------------------------------------------
+
+% \numberwithin from the amsmath package provides per section numbering.
+% we want per section. Note that the amsmath package is loaded from
+% mathtools, loaded above.
+% Note: we cannot put this in the preamble since lstlisting does not like
+% it.
+\numberwithin{equation}{chapter}
+\numberwithin{figure}{chapter}
+\numberwithin{lstlisting}{chapter}
+\numberwithin{table}{chapter}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frontmatter
+
+\maketitle
+
+\begin{abstract}
+\input{Contents/abstract}
+\end{abstract}
+\clearpage
+
+%\dominitoc% Initialization
+\tableofcontents*
+
+\listofalgorithms
+\addtocontents{loa}{\def\string\figurename{Algorithm}}
+
+\clearpage
+
+\include{Contents/introduction}
+
+%\lipsum[1-12]
+
+\mainmatter
+
+% NOTE: this is good for long Chapter names
+%\chapter[medium-length title for TOC, if wanted]{full title name}
+%\chaptermark{short title for running headers}
+
+\include{Contents/template.tex}
+
+\appendix
+\counterwithin{figure}{chapter}
+
+%\include{Contents/pt04Appndxs}
+%\include{Contents/chAThOnDfntnRl}
+%\include{Contents/chBVlCtgrs}
+%\include{Contents/chCOvrldRsltn}
+%\include{Contents/chDStndrdTypUtlts}
+%\include{Contents/chECncpts}
+
+%\chapter{Causality}
+%
+%\lipsum[1-15]
+
+\backmatter
+
+%%% BIBLIOGRAPHY
+%%% -------------------------------------------------------------
+
+% \bibliographystyle{utphysics}
+% \bibliography{ref}
+
+\defbibnote{myprenote}{Numbers in brackets following a reference give page numbers where the reference is cited.}
+% Does what it says (using biblatex package)
+\printbibliography[prenote=myprenote]
+%\printbibliography
+
+%\begingroup
+%%\setstretch{0.9}
+%\sloppy
+%%\singlespacing
+%\setlength\bibitemsep{1pt}
+%\printbibliography
+%\endgroup
+
+\end{document}

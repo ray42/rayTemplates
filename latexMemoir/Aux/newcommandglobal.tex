@@ -1,0 +1,886 @@
+
+
+% List of long classes and function names to use in texttt
+\newcommand{\NSSCP}{Navi\-er\-Stokes\-Schur\-Com\-ple\-ment\-Pre\-con\-di\-tion\-er}
+\newcommand{\HYPREPREC}{Hy\-pre\-Pre\-con\-di\-tion\-er}
+\newcommand{\HYPRESETCOARSE}{HYPRE\-\_\-Boom\-er\-AMG\-Set\-Coars\-en\-Type(...)}
+\newcommand{\HYPRESETRELAX}{HYPRE\-\_\-Boom\-er\-AMG\-Set\-Re\-lax\-Type(...)}
+\newcommand{\BLOCKPREC}{Block\-Pre\-con\-di\-tion\-er}
+\newcommand{\PREC}{Pre\-con\-di\-tion\-er}
+\newcommand{\GENELEMENT}{Gen\-er\-al\-ised\-El\-e\-ment}
+\newcommand{\QTAYLORTWO}{Q\-Tay\-lor\-Hood\-El\-e\-ment\-<2>}
+\newcommand{\QTAYLORTHREE}{Q\-Tay\-lor\-Hood\-El\-e\-ment\-<3>}
+\newcommand{\FACEELEMENT}{Face\-El\-e\-ment}
+\newcommand{\IMPOSEPELEMENT}{Im\-pose\-Par\-al\-lel\-Out\-flow\-El\-e\-ment}
+\newcommand{\BLOCKTRIANGULARPREC}{Block\-Tri\-an\-gu\-lar\-Pre\-con\-di\-tion\-er}
+\newcommand{\TTPROBLEM}{Prob\-lem}
+\newcommand{\TTMESH}{Mesh}
+\newcommand{\TTMETIS}{ME\-TIS}
+\newcommand{\TTELEMENT}{El\-e\-ment}
+\newcommand{\TTNODE}{Node}
+\newcommand{\TTCRDOUBLEMATRIX}{C\-R\-Dou\-ble\-Ma\-trix}
+\newcommand{\TTDOUBLEVECTOR}{Dou\-ble\-Vec\-tor}
+\newcommand{\TTSUPERLUPRECONDITIONER}{Su\-per\-LU\-Pre\-con\-di\-tion\-er}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% namespaces
+\newcommand{\NAMESPACE}{name\-space}
+
+% CRDoubleMatrixHelpers namespace
+\newcommand{\CRDOUBLEMATRIXHELPERS}{CR\-Dou\-ble\-Ma\-trix\-Help\-ers}
+% Here are the functions in the above namespace
+\newcommand{\CATWOCOMM}{con\-cat\-e\-nate\-\_\-with\-out\-\_\-com\-mu\-ni\-ca\-tion}
+
+
+\newcommand{\LINALGDIST}{Lin\-e\-ar\-Al\-ge\-bra\-Dis\-tri\-bu\-tion}
+
+% Functions, these all end with (...)
+\newcommand{\TURNINTO}{turn\-\_\-in\-to\-\_\-sub\-sid\-i\-ar\-y\-\_\-block\-\_\-pre\-con\-di\-tion\-er(...)}
+\newcommand{\BLOCKSETUP}{block\-\_\-set\-up(...)}
+\newcommand{\SETUP}{set\-up(...)}
+\newcommand{\PRECONDITIONERSOLVE}{pre\-con\-di\-tion\-er\-\_\-solve(...)}
+\newcommand{\NDOFTYPESFUN}{n\-dof\-\_\-types()}
+\newcommand{\NBLOCKTYPESFUN}{n\-block\-\_\-types()}
+\newcommand{\GETDOFNUM}{get\-\_\-dof\-\_\-num\-bers\-\_\-for\-\_\-un\-knowns(...)}
+\newcommand{\SETNMESH}{set\-\_\-n\-mesh(...)}
+\newcommand{\SETMESH}{set\-\_\-mesh(...)}
+\newcommand{\SETFPREC}{set\-\_\-f\-\_\-pre\-con\-di\-tion\-er(...)}
+\newcommand{\MATRIXPTFUN}{ma\-trix\-\_\-pt()}
+\newcommand{\GETBLOCK}{get\-\_\-block(...)}
+\newcommand{\SETREPLACEMENTDOFBLOCK}{set\-\_\-re\-place\-ment\-\_\-dof\-\_\-block(...)}
+\newcommand{\GETBLOCKVECTOR}{get\-\_\-block\-\_\-vec\-tor(...)}
+\newcommand{\RETURNBLOCKVECTOR}{re\-turn\-\_\-block\-\_\-vec\-tor(...)}
+% For the following command, we must put in (i,j) ourselves.
+\newcommand{\GETBLOCKIJ}{get\-\_\-block}
+
+
+
+% Variables
+\newcommand{\BULKMESHPT}{Bulk\_mesh\_pt}
+\newcommand{\BOUNDARYMESHPT}{Bound\-a\-ry\_mesh\_pt}
+\newcommand{\NDOFTYPESVAR}{n\-dof\-\_\-types}
+\newcommand{\DOFTOBLOCKMAP}{dof\_to\_block\_map}
+\newcommand{\INTERNALDOFTOBLOCKMAP}{in\-ter\-nal\_dof\_to\_block\_map}
+\newcommand{\DOFTYPECOARSENMAP}{dof\-type\-\_\-coars\-en\-\_\-map}
+\newcommand{\FPRECPT}{F\-\_\-pre\-con\-di\-tion\-er\_pt}
+\newcommand{\NVELOCITYDOFTYPES}{{n\-ve\-loc\-i\-ty\-\_\-dof\-\_\-types}}
+\newcommand{\DOFMAP}{dof\-\_\-map\-}
+\newcommand{\NAVIERSTOKESBLOCKPRECONDITIONERPT}{Navi\-er\_stokes\_block\_pre\-con\-di\-tion\-er\_pt}
+\newcommand{\DOFTYPECOARSENMAPFINE}{Dof\-type\-\_\-coars\-en\-\_\-map\-\_\-fine}
+\newcommand{\WPRECONDITIONERPT}{W\-\_\-pre\-con\-di\-tion\-er\-\_\-pt}
+\newcommand{\WPT}{w\-\_\-pt}
+\newcommand{\MATRIXVECTORPRODUCT}{Ma\-trix\-Vec\-tor\-Prod\-uct}
+
+
+% Identifiers?
+\newcommand{\VECTORVECTORUNSIGNED}{Vec\-tor<\-Vec\-tor<un\-signed> >}
+\newcommand{\VECTORUNSIGNED}{Vec\-tor<un\-signed\->}
+\newcommand{\VECTOR}{Vec\-tor}
+\newcommand{\UNSIGNED}{un\-signed}
+\newcommand{\INT}{int}
+\newcommand{\DOUBLE}{dou\-ble}
+\newcommand{\STDVECTOR}{std\-::\-vec\-tor}
+
+% Other
+\newcommand{\TTFOR}{for}
+
+%% these must be in mathmode
+\newcommand{\nsubprecdoftypes}{N_{dof}^{S}}
+\newcommand{\nmasprecdoftypes}{N_{dof}^{M}}
+
+\newcommand{\nloc}{N_{p}}
+%\newcommand{\nproc}{n_{p}}
+
+
+\newcommand{\pde}{partial differential equation}
+\newcommand{\Pde}{Partial differential equation}
+\newcommand{\pdes}{partial differential equations}
+\newcommand{\Pdes}{Partial differential equations}
+%\newcommand{\ul}[1]{\underline{#1}}
+\newcommand{\degree}{^{\circ}}
+
+% Registered trademark sign
+\newcommand{\supertextregistered}{\textsuperscript{\textregistered}}
+
+% Target problem size for matrix concatenation
+\newcommand{\tarN}{\mathcal{N}}
+\newcommand{\Nrowsub}{\widehat{\mathcal{R}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% Words
+\newcommand{\oomphlib}{\texttt{oomph-lib}}
+\newcommand{\Oomphlib}{\texttt{Oomph-lib}}
+\newcommand{\SuperLU}{\texttt{SuperLU}}
+\newcommand{\SuperLUDIST}{\texttt{SuperLU\_DIST}}
+\newcommand{\SuperLUMT}{\texttt{SuperLU\_MT}}
+\newcommand{\faceelement}{\texttt{FaceElement}}
+\newcommand{\infsup}{\emph{inf-sup}}
+\newcommand{\HYPRE}{\texttt{HYPRE}}
+\newcommand{\BoomerAMG}{\texttt{BoomerAMG}}
+\newcommand{\TRILINOS}{\texttt{Trilinos}}
+\newcommand{\AZTECOO}{\texttt{AztecOO}}
+\newcommand{\Belos}{\texttt{Belos}}
+\newcommand{\EPETRA}{\texttt{Epetra}}
+\newcommand{\EPETRAEXT}{\texttt{EpetraExt}}
+\newcommand{\EPETRACRSMATRIX}{\texttt{Epetra\_CrsMatrix}}
+\newcommand{\EPETRAMAP}{\texttt{Epetra\_Map}}
+\newcommand{\MATLAB}{\texttt{MATLAB}}
+\newcommand{\polyfit}{\texttt{polyfit}}
+\newcommand{\MAXVMEM}{\texttt{maxvmem}}
+\newcommand{\QACCT}{\texttt{qacct}}
+\newcommand{\TetGen}{\texttt{Tet\-Gen}}
+\newcommand{\SVTNSE}{SVT-NSE}
+\newcommand{\SDVTNSE}{SDVT-NSE}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\diag}{\mathop{\mathrm{diag}}}
+
+\newcommand{\suchthat}{\mathrel{}\middle|\mathrel{}}
+
+% Ceiling and floor.
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+% Operators
+% abs | . |
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}% need mathtools
+% norm || . ||
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}% need mathtools
+% parenthesis ( . )
+\DeclarePairedDelimiter\paren{(}{)}% need mathtools
+% bracket parenthesis [ . ]
+\DeclarePairedDelimiter\bparen{[}{]}% need mathtools
+% curly bracket parenthesis { . }
+\DeclarePairedDelimiter\Bparen{\{}{\}}% need mathtools
+
+% Swap the definition of \abs* and \norm*, so that \abs
+% and \norm resizes the size of the brackets, and the 
+% starred version does not.
+\makeatletter
+%
+\let\oldceil\ceil
+\def\ceil{\@ifstar{\oldceil}{\oldceil*}}
+%
+\let\oldfloor\floor
+\def\floor{\@ifstar{\oldfloor}{\oldfloor*}}
+%
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+%
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+%
+\let\oldparen\paren
+\def\paren{\@ifstar{\oldparen}{\oldparen*}}
+%
+\let\oldbparen\bparen
+\def\bparen{\@ifstar{\oldbparen}{\oldbparen*}}
+%
+\let\oldBparen\Bparen
+\def\Bparen{\@ifstar{\oldBparen}{\oldBparen*}}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% bold face mathematics for greeks only
+% for letters, we use mathbf, they produce very different results.
+\newcommand{\veccalc}[1]{\bm{#1}}
+
+% new sign for transpose, this is good, again must be in mathmode.
+\newcommand{\raytran}{T}
+% sign for the inverse
+\newcommand{\rayinv}{-1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Navier-Stokes / Fluid stuff. This must go into math mode.
+
+% Dimensionless numbers
+% Note: We use \mathrm here (as oppose to \text) because \text takes on the
+% current text format (so it may be italic, but these are mathematical
+% symbols.)
+\newcommand{\dlReynolds}{\mathrm{Re}} % Reynolds number
+\newcommand{\dlStrouhal}{\mathrm{St}} % Strouhal number
+\newcommand{\dlFroude}{\mathrm{Fr}} % Froude number
+\newcommand{\dlKnudsen}{\mathrm{Kn}} % Knudsen number, used in introduction
+\newcommand{\dlMach}{\mathrm{Ma}} % Mach number, used in NS section.
+
+% Others like kinematic viscosity, mean free math, density, etc...
+\newcommand{\meanfreepath}{\lambda} % mean free path, used in introduction
+
+\newcommand{\charlength}{\mathcal{L}} % Characteristic length scale.
+\newcommand{\charvelo}{\mathcal{U}} % Characteristic velocity.
+\newcommand{\chartime}{\mathcal{T}} % Characteristic time.
+
+\newcommand{\nstemperature}{\theta} % Fluid's temperature
+\newcommand{\nsdensity}{\rho} % Fluid's density
+\newcommand{\nsviscosity}{\mu} % Fluid's dynamic viscosity
+\newcommand{\nsdensityref}{\nsdensity_{ref}} % Fluid's reference density
+\newcommand{\nsviscosityref}{\nsviscosity_{ref}} % Fluid's reference viscosity
+\newcommand{\nsratiodensity}{\mathrm{R}_{\nsdensity}}
+\newcommand{\nsratioviscosity}{\mathrm{R}_{\nsviscosity}}
+\newcommand{\nskinematicviscosity}{\nu}
+
+\newcommand{\nsintensive}{\varphi}
+\newcommand{\nscontrolvolume}{\Omega}
+
+
+% Gresho p424: We use Greek indices to denote spatial vectors and directions
+% because this will help us later when we introduce nodes and finite element
+% basis functions.
+\newcommand{\nsi}{i} % For the i-th direction
+\newcommand{\nsj}{j} % for the j-th direction.
+\newcommand{\nsvelo}{u} % velocity
+\newcommand{\nsvelovec}{\mathbf{\nsvelo}}
+\newcommand{\nsvelow}{w} % velocity
+\newcommand{\nsvelowvec}{\mathbf{\nsvelow}}
+\newcommand{\nsnormvec}{\mathbf{n}}
+\newcommand{\nspres}{p} % pressure
+\newcommand{\nstime}{t} % time
+\newcommand{\nsx}{x} % x - Cartesian coordinate
+\newcommand{\nsbody}{B} % variable body force
+\newcommand{\nsgravity}{G} % constant body force
+\newcommand{\nsvolsource}{Q} % volumetric source term
+\newcommand{\strainratetensor}{\bm{\epsilon}}
+
+% Solution of linear systems LSC derivation:
+\newcommand{\CDOpVec}{\mathcal{L}}
+\newcommand{\CDOpPres}{\mathcal{L}_p}
+
+% Navier-Stokes generic body force.
+\newcommand{\nsgenbody}{\mathbf{f}}
+
+\newcommand{\normal}{n}
+\newcommand{\unitnormal}{\hat{\normal}}
+% Outward UNIT normal vector
+\newcommand{\unitnormalvec}{\mathbf{\unitnormal}}
+
+\newcommand{\unittangent}{\hat{t}}
+\newcommand{\unittangents}{\hat{t}_s}
+\newcommand{\unittangentvec}{\mathbf{\unittangent}}
+\newcommand{\unittangentsvec}{\mathbf{\hat{t}}_s}
+
+% Traction force
+\newcommand{\tractionforce}{T}
+% Traction force vector
+\newcommand{\tractionforcevec}{\mathbf{\tractionforce}}
+
+% Stress tensor
+\newcommand{\stresstensor}{\veccalc{\sigma}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Maths stuff, these should always go in math mode.
+
+% Generic
+\newcommand{\realnumbers}{\mathbb{R}} % Real numbers
+\newcommand{\complexnumbers}{\mathbb{C}} % Complex
+\newcommand{\imaginarynumbers}{\mathbb{I}} % Complex
+\newcommand{\realvectors}[1]{\mathbb{R}^{#1}} % Real numbers
+\newcommand{\realmatrices}[2]{\mathbb{R}^{#1 \times #2}} % Real numbers
+\newcommand{\tolgeneral}{\varepsilon} % General tol for iterative methods
+\newcommand{\tolnewton}{\varepsilon_N} % Newton tolerance
+\newcommand{\tolkrylov}{\varepsilon_K} % Krylov/GMRES tolerance
+\newcommand{\toltime}{\varepsilon_T} % adaptive time stepping tolerance
+\newcommand{\tolnumnewton}{10^{-6}}
+\newcommand{\tolnumkrylov}{10^{-6}}
+\newcommand{\tolnumtime}{10^{-4}}
+
+% AMG parameters
+% Strength of dependence
+\newcommand{\strn}{\theta}
+% damping for Jacobi
+\newcommand{\jdamp}{\omega}
+
+
+% Big-O notation
+% Keywords (for searching):
+% bigo, big-o, asymptotic, complexity
+\newcommand{\bigo}[1]{\mathcal{O}\paren{#1}} 
+\newcommand{\pow}[1]{^{#1}}
+\newcommand{\inv}{\pow{-1}}
+\newcommand{\tran}{^{T}}
+
+
+
+% Stuff about domains%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\domain}{\Omega}
+\newcommand{\tdomain}{T}
+
+% discretisation parameter
+\newcommand{\meshsizeh}{h}
+
+% Stuff used for multigrid.
+% Mesh discretisation parameter
+\newcommand{\finemeshh}{h}  % fine
+\newcommand{\coarsemeshH}{H} % coarse
+\newcommand{\coarsemeshhh}{2\finemeshh}
+
+% Grid transfer operators
+\newcommand{\MGprolongH}{I^{\finemeshh}_{\coarsemeshH}}
+\newcommand{\MGprolonghh}{I^{\finemeshh}_{\coarsemeshhh}}
+\newcommand{\MGrestrictH}{I^{\coarsemeshH}_{\finemeshh}}
+\newcommand{\MGrestricthh}{I^{\coarsemeshhh}_{\finemeshh}}
+\newcommand{\MGprogmat}{P}
+\newcommand{\MGrestgmat}{R}
+\newcommand{\MGP}{P}
+\newcommand{\MGR}{R}
+
+\newcommand{\MGcoeffAh}{A_{\finemeshh}}
+\newcommand{\MGcoeffAhh}{A_{\coarsemeshhh}}
+\newcommand{\MGbh}{\bar{b}_{\finemeshh}}
+\newcommand{\MGbhh}{\bar{b}_{\coarsemeshhh}}
+\newcommand{\MGxh}{\bar{x}_{\finemeshh}}
+\newcommand{\MGxhh}{\bar{x}_{\coarsemeshhh}}
+\newcommand{\MGyh}{\bar{y}_{\finemeshh}}
+\newcommand{\MGyhh}{\bar{y}_{\coarsemeshhh}}
+\newcommand{\MGeh}{\bar{e}_{\finemeshh}}
+\newcommand{\MGehh}{\bar{e}_{\coarsemeshhh}}
+\newcommand{\MGrh}{\bar{r}_{\finemeshh}}
+\newcommand{\MGrhh}{\bar{r}_{\coarsemeshhh}}
+\newcommand{\MGAh}{A_{\finemeshh}}
+\newcommand{\MGAhh}{A_{\coarsemeshhh}}
+\newcommand{\MGIh}{I_{\finemeshh}}
+\newcommand{\MGIhh}{I_{\coarsemeshhh}}
+\newcommand{\MGMh}{\tilde{M}_{\finemeshh}}
+\newcommand{\MGMhh}{\tild{M}_{\coarsemeshhh}}
+\newcommand{\MGNh}{\tilde{N}_{\finemeshh}}
+\newcommand{\MGNhh}{\tild{N}_{\coarsemeshhh}}
+
+
+% Domain/mesh
+\newcommand{\domainh}{\Omega_{\finemeshh}}
+\newcommand{\domainH}{\Omega_{\coarsemeshH}}
+\newcommand{\domainhh}{\Omega_{\coarsemeshhh}}
+
+% Basis sets
+\newcommand{\xbasish}{X^{\finemeshh}_{0}}
+\newcommand{\xbasisH}{X^{\coarsemeshH}_{0}}
+\newcommand{\xbasishh}{X^{\coarsemeshhh}_{0}}
+
+% Dimensions of basis sets
+\newcommand{\xbasisdimh}{N_{\finemeshh}}
+\newcommand{\xbasisdimH}{N_{\coarsemeshH}}
+\newcommand{\xbasisdimhh}{N_{\coarsemeshhh}}
+
+
+
+\newcommand{\vsolh}{\psi_{\finemeshh}}
+\newcommand{\vsolhh}{\psi_{\coarsemeshhh}}
+
+
+
+
+
+\newcommand{\ffh}{^{\finemeshh}} % Fine grid, length h between nodes
+\newcommand{\cch}{^{\coarsemeshH}} % Course grid, length 2h between nodes
+\newcommand{\ok}{^{[k]}}
+\newcommand{\okk}{^{[k+1]}}
+
+\newcommand{\ncmeshh}{2\finemeshh}
+\newcommand{\ncch}{^{2\finemeshh}}
+
+
+
+
+
+% Angle of rotation
+\newcommand{\angleofrot}{\alpha}
+
+% Domain with alpha (angle of rotation) as superscript.
+\newcommand{\rotdomain}{\Omega^{[\angleofrot]}}
+
+% Domain with param (angle of rotation) as superscript.
+\newcommand{\rotdomainang}[1]{\Omega^{[#1]}}
+
+% Boundary labels%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\inflowlabel}{I} % Inflow
+\newcommand{\characteristiclabel}{C} % Characteristic
+\newcommand{\outflowlabel}{O} % Outflow
+\newcommand{\naturallabel}{N} % Neumann natural outflow boundary
+\newcommand{\dirichletlabel}{D} % Dirichlet boundary
+
+\newcommand{\paralleloutflowlabel}{P} % Parallel outflow
+\newcommand{\nopenetrationlabel}{T} % no penetration
+\newcommand{\genconstrainedlabel}{\lambda}
+
+% Boundaries
+\newcommand{\bound}{\partial\domain} % Generic boundary
+
+\newcommand{\inbound}{\bound_\inflowlabel} % Inflow - I
+\newcommand{\charbound}{\bound_\characteristiclabel} % Characteristic - C
+\newcommand{\outbound}{\bound_\outflowlabel} % Outflow - O
+\newcommand{\natbound}{\bound_\naturallabel} % Neumann/natural - N
+\newcommand{\dirbound}{\bound_\dirichletlabel} % Dirichlet - D
+
+\newcommand{\pobound}{\bound_\paralleloutflowlabel} % See labels ^
+\newcommand{\tfbound}{\bound_\nopenetrationlabel} % See labels ^
+\newcommand{\constrainedbound}{\bound_\genconstrainedlabel} % lambda
+\newcommand{\genconstrainedbound}{\bound_\genconstrainedlabel}
+
+% Indexed boundary with i
+%\newcommand{dirichletii}{\bound_\dirichletlabel} % D_i
+\newcommand{\neumanni}{\bound_{\naturallabel_i}} % Neumann/natural - N_i
+\newcommand{\dirichleti}{\bound_{\dirichletlabel_i}} % Dirichlet - D_i
+\newcommand{\constrainedi}{\bound_{\genconstrainedlabel_i}} % Weakly - lambda_i
+
+
+%\newcommand{\tractvec}{T}
+
+
+
+% Finite element discretisation stuff
+\newcommand{\eleq}[1]{\mathbf{Q}_{#1}} % Remove this after fixing Chap 2
+\newcommand{\elep}[1]{\mathbf{P}_{#1}} % Remove this after fixing Chap 2
+\newcommand{\triele}[1]{\mathbf{P}_{#1}}
+\newcommand{\quadele}[1]{\mathbf{Q}_{#1}}
+\newcommand{\taylorhood}{\quadele{2}-\quadele{1}}
+\newcommand{\ijdim}{\text{for } i,j = 1,2\,[,3]}
+\newcommand{\idim}{\text{for } i = 1,2\,[,3]}
+\newcommand{\jdim}{\text{for } j = 1,2\,[,3]}
+\newcommand{\vsol}{\psi}
+\newcommand{\vsolvec}{\veccalc{\vsol}}
+\newcommand{\lgrconstrainttest}{\psi^{c}}
+\newcommand{\psol}{\varphi}
+\newcommand{\vtest}{\Phi}
+\newcommand{\ptest}{\chi}
+%\newcommand{\dirichleti}{\Omega_{D_i}}
+%\newcommand{\neumanni}{\Omega_{N_i}}
+\newcommand{\pfrac}[2]{\frac{\partial #1}{\partial #2}}
+
+% Element jacobian mapping between global and local coordinates
+\newcommand{\elejacmap}{\hat{\mathcal{J}}}
+\newcommand{\genbasis}{\phi} % General basis
+\newcommand{\gbasis}{\phi_{j}} % Global basis
+\newcommand{\lbasis}{\phi_{j_{local}}^{(e)}} % Local basis
+
+
+
+% Systems of linear equations
+\newcommand{\approxchi}{x}
+\newcommand{\approxx}[1]{\bar{x}^{[#1]}} % For the approximate solution
+\newcommand{\comapproxx}[1]{x^{[#1]}}
+% A general approximate solution
+% Not associated with any steps.
+\newcommand{\genapproxx}{\bar{x}^{[k]}} 
+\newcommand{\mapproxx}{\bar{x}^{[m]}} 
+\newcommand{\Mapproxx}{\bar{x}^{[M]}} 
+\newcommand{\vvv}[1]{\bar{v}^{[#1]}} % For the approximate solution
+\newcommand{\cgp}[1]{\bar{p}^{[#1]}} % CG search direction
+%  For CG Conjugate Gradient
+\newcommand{\cgalpha}{\alpha}
+
+%\newcommand{\cgsearchdir}{\alpha^{\[ #1 \]}}
+
+% initial residual vector
+\newcommand{\initialr}{\bar{r}^{[0]}}
+% used in projection method, for the next projection:
+\newcommand{\lindelta}{\bar{\delta}}
+
+\newcommand{\iteratex}{\bar{x}}
+\newcommand{\exactx}{\bar{x}^{*}}
+\newcommand{\initialx}{\iteratex^{[0]}}
+\newcommand{\kthx}{\iteratex^{[k]}}
+\newcommand{\INUpdate}{\bar{s}}
+
+%% Error at an iterate, for example:
+% Let e_k = x^* - x_k denote the error at the kth step of an inexact Newton
+% iteration.
+\newcommand{\linerror}{\bar{e}}
+\newcommand{\linktherror}{\bar{e}^{[k]}}
+\newcommand{\lingenerror}[1]{\bar{e}^{[#1]}}
+
+
+% Ax = b %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\linA}{A} % Matrix A
+\newcommand{\linB}{B} % Matrix A
+\newcommand{\linC}{C} % Matrix A
+\newcommand{\linD}{D} % Matrix A
+\newcommand{\linE}{E} % Matrix A
+\newcommand{\linF}{F} % Matrix A
+\newcommand{\linG}{G} % Matrix A
+\newcommand{\linH}{H} % Matrix A
+\newcommand{\linI}{I} % Matrix A
+\newcommand{\linJ}{J} % Matrix A
+\newcommand{\linK}{K} % Matrix A
+\newcommand{\linL}{L} % Matrix A
+\newcommand{\linM}{M} % Matrix A
+\newcommand{\linN}{N} % Matrix A
+\newcommand{\linO}{O} % Matrix A
+\newcommand{\linP}{P} % Matrix A
+\newcommand{\linQ}{Q} % Matrix A
+\newcommand{\linR}{R} % Matrix A
+\newcommand{\linS}{S} % Matrix A
+\newcommand{\linT}{T} % Matrix A
+\newcommand{\linU}{U} % Matrix A
+\newcommand{\linV}{V} % Matrix A
+\newcommand{\linW}{W} % Matrix A
+\newcommand{\linX}{X} % Matrix A
+\newcommand{\linY}{Y} % Matrix A
+\newcommand{\linZ}{Z} % Matrix A
+\newcommand{\linzero}{\bar{0}} % Matrix A
+\newcommand{\linzeromat}{\mathit{O}}
+\newcommand{\zeromat}{\linzeromat}
+\newcommand{\zm}{\linzeromat}
+
+
+\newcommand{\itermat}{\linG{}}
+\newcommand{\itermatwj}{\linG{}_{J_{\omega}}}
+\newcommand{\eye}{\linI{}}
+
+\newcommand{\bxx}{11}
+\newcommand{\bxxc}{1\hat{1}}
+\newcommand{\bxy}{12}
+\newcommand{\bxyc}{1\hat{2}}
+
+\newcommand{\bxcx}{\hat{1}1}
+\newcommand{\bxcxc}{\hat{1}\hat{1}}
+\newcommand{\bxcy}{\hat{1}2}
+\newcommand{\bxcyc}{\hat{1}\hat{2}}
+
+\newcommand{\byx}{21}
+\newcommand{\byxc}{2\hat{1}}
+\newcommand{\byy}{22}
+\newcommand{\byyc}{2\hat{2}}
+
+\newcommand{\bycx}{\hat{2}1}
+\newcommand{\bycxc}{\hat{2}\hat{1}}
+\newcommand{\bycy}{\hat{2}2}
+\newcommand{\bycyc}{\hat{2}\hat{2}}
+
+\newcommand{\bx}{1}
+\newcommand{\by}{2}
+\newcommand{\bxc}{\hat{1}}
+\newcommand{\byc}{\hat{2}}
+
+%\newcommand{\xcx}{\hat{1}1}
+%\newcommand{\xcxc}{\hat{1}\hat{1}}
+%\newcommand{\yy}{11}
+%\newcommand{\ycy}{\hat{1}1}
+%\newcommand{\yyc}{1\hat{1}}
+%\newcommand{\ycyc}{\hat{1}\hat{1}}
+
+
+
+% vectors in linear algebra has a bar on top.
+\newcommand{\linvec}[1]{\bar{#1}}
+\newcommand{\lina}{\linvec{a}} % vector a
+\newcommand{\linb}{\linvec{b}} % vector b
+\newcommand{\linc}{\linvec{c}} % c
+\newcommand{\lind}{\linvec{d}} % d
+\newcommand{\linee}{\linvec{e}} % e \line already defined
+\newcommand{\linf}{\linvec{f}} % f
+\newcommand{\ling}{\linvec{g}} % g
+\newcommand{\linh}{\linvec{h}} % h
+\newcommand{\lini}{\linvec{i}} % i
+\newcommand{\linj}{\linvec{j}} % j
+\newcommand{\link}{\linvec{k}} % k
+\newcommand{\linl}{\linvec{l}} % l
+\newcommand{\linm}{\linvec{m}} % m
+\newcommand{\linn}{\linvec{n}} % n
+\newcommand{\lino}{\linvec{o}} % o
+\newcommand{\linp}{\linvec{p}} % p
+\newcommand{\linq}{\linvec{q}} % q
+\newcommand{\linx}{\linvec{x}} % 
+\newcommand{\liny}{\linvec{y}} % 
+\newcommand{\linz}{\linvec{z}} % 
+\newcommand{\linr}{\linvec{r}} % r - normally used for residuals
+\newcommand{\lins}{\linvec{s}} % r - normally used for residuals
+\newcommand{\lint}{\linvec{t}} % r - normally used for residuals
+\newcommand{\linu}{\linvec{u}} % r - normally used for residuals
+\newcommand{\linv}{\linvec{v}} % r - normally used for residuals
+\newcommand{\linw}{\linvec{w}} % r - normally used for residuals
+\newcommand{\linzerovec}{\linvec{0}}
+
+\newcommand{\tangvec}{\hat{t}^{\,i}}
+\newcommand{\normvec}{\hat{n}}
+
+% Used for the constraint vector component in Chapter 4
+\newcommand{\constraintc}{\hat{c}}
+% Used for the constraint vector in Chapter 4
+\newcommand{\constraintcvec}{\mathbf{\constraintc}}
+% Used for the Lagrange multiplier variable in Chapter 4
+\newcommand{\lgrVar}{\lambda} % the actual lgr multiplier variable
+\newcommand{\lgrNewtCor}{\Lambda} % Used for the Newton corrections
+% Lgr subscript Used for anything else related, such as ndof
+\newcommand{\lgrSubscr}{\ell} 
+\newcommand{\nsSubscr}{ns}
+\newcommand{\veloSubscr}{u}
+
+
+\newcommand{\eigFull}{\nu} % eigenvalue for full jac
+\newcommand{\eigMo}{\mu} % eigenvalue for momentum sized jac
+\newcommand{\eigMoL}{\lambda} % = - mu/(mu+1)
+\newcommand{\eigMotL}{\tilde{\lambda}} % = sigma/lambda
+
+
+
+\newcommand{\kspace}[1]{\mathcal{K}_#1}
+\newcommand{\knspace}{\kspace{n}}
+\newcommand{\fwj}{\linf{}_{J_{\omega}}}
+\newcommand{\numitererror}[1]{\lind{}^{[#1]}}
+\newcommand{\kthitererror}{\numitererror{k}}
+\newcommand{\initialitererror}{\numitererror{0}}
+
+\newcommand{\tenpower}[1]{\times10^{#1}}
+
+
+\newcommand{\coma}{a} % vector a
+\newcommand{\comb}{b} % vector b
+\newcommand{\comc}{c} % c
+\newcommand{\comd}{d} % d
+\newcommand{\comee}{e} % \line is defined already
+\newcommand{\comf}{f} % d
+\newcommand{\comg}{g} % d
+\newcommand{\comh}{h} % d
+\newcommand{\comi}{i} % d
+\newcommand{\comj}{j} % d
+\newcommand{\comk}{k} % d
+\newcommand{\coml}{l} % d
+\newcommand{\comm}{m} % d
+\newcommand{\comn}{n} % d
+\newcommand{\como}{o} % d
+\newcommand{\comp}{p} % d
+\newcommand{\comx}{x} % 
+\newcommand{\comy}{y} % 
+\newcommand{\comz}{z} % 
+\newcommand{\comr}{r} % r - normally used for residuals
+\newcommand{\comu}{u} % r - normally used for residuals
+\newcommand{\comv}{v} % r - normally used for residuals
+\newcommand{\comw}{w} % r - normally used for residuals
+
+
+% Term to augment the momentum, used in Chap 4, discretisation
+\newcommand{\constraintterm}{\Pi_{\lambda}}
+% First variation - used in Chapter 4, discretisation
+\newcommand{\variation}{\delta}
+
+
+\newcommand{\linAx}{\linA{}\linx{}}  %Ax = b
+\newcommand{\linAexactx}{\linA{}\exactx{}} %A \tild{x}^*
+\newcommand{\linAappoxx}[1]{\linA{}\approxx{#1}}%A \tilde{x}^#1
+
+% This is quite specific to my thesis, this is the dimensions of my
+% generic linear system Ax = b
+% Dimensions of A is n x n, x is n, b is n
+\newcommand{\genrowdim}{N}
+\newcommand{\gencoldim}{M}
+\newcommand{\dimN}{N}
+\newcommand{\dimM}{M}
+\newcommand{\dimlinA}{\realmatrices{N}{N}}
+\newcommand{\dimlinx}{\realvectors{N}}
+\newcommand{\sizeofmat}{N}
+\newcommand{\forioneton}{i = 1,\ldots,\genrowdim{}}
+\newcommand{\NdofLgr}{N_{\ell}} 
+\newcommand{\NdofLgrI}{N_{\ell,i}} 
+\newcommand{\NdofP}{N_{p}}
+\newcommand{\NdofNS}{N_{ns}}
+
+\newcommand{\NdofU}[1][]{%
+\ifthenelse{\isempty{#1}}{N_{u}}{N_{u_{#1}}}%
+}
+
+\newcommand{\NdofHatU}[1][]{%
+\ifthenelse{\isempty{#1}}{N_{\hat{u}}}{N_{\hat{u}_{#1}}}%
+}
+
+\newcommand{\NdofEle}{N_{e}} % Ndof within an element
+%\newcommand{\NInt}{N_{int}} % number of integration points.
+
+\newcommand{\NInt}[1][]{%
+\ifthenelse{\isempty{#1}}{N_{int}}{N_{{#1}int}}%
+}
+
+
+\newcommand{\numboundvdof}{N_{\bound u}}
+
+% Key for the below variable:
+% size of linear system
+% number of unknowns
+% problem size
+\newcommand{\probsizeN}{N} % This is used in my results chapter
+\newcommand{\timestepsize}{\Delta}
+
+\newcommand{\wscaling}{\sigma}
+% Function spaces
+\newcommand{\Lpspace}[1]{L^{#1}}
+\newcommand{\Ltwo}{\Lpspace{2}}
+\newcommand{\Hspace}[1]{\mathcal{H}^{#1}}
+\newcommand{\Hone}{\Hspace{1}}
+\newcommand{\Honevecsoln}{\mathbf{H}^{1}_E}
+\newcommand{\Honevectest}{\mathbf{H}^{1}_0}
+\newcommand{\zspace}{Z}
+
+\newcommand{\genjac}{\mathcal{F}}
+\newcommand{\genjacJ}{\mathcal{J}}
+
+% Matrix for inexact newton method demo.
+\newcommand{\INMat}{\mathcal{F}} 
+
+% Original NS Jacobian
+\newcommand{\nsjac}{\mathcal{F}_{ns}}
+
+% Used to denote F__ns +L^T W^-1 L
+\newcommand{\modnsjac}{\tilde{\mathcal{F}}_{ns}}
+
+% Used to denote F_ns + L^T \widehat{D}_M L
+% Where widehat{D}_M is the sum of the squared diagonal of the mass matrices
+% See the results chapter (serial results)
+\newcommand{\diagwmodnsjac}{\widehat{\mathcal{F}}_{ns}}
+
+\newcommand{\genprec}{\mathcal{P}}
+\newcommand{\precAL}{\mathcal{P}_{AL}}
+\newcommand{\precmAL}{\tilde{\mathcal{P}}_{AL}}
+\newcommand{\precNS}{\mathcal{P}_{NS}}
+\newcommand{\precE}{\mathcal{P}_E}
+\newcommand{\precLSC}{\mathcal{P}_{LSC}}
+\newcommand{\preciLSC}{\widehat{\mathcal{P}}_{LSC}}
+\newcommand{\preciLSCLIST}{\hat{\mathcal{P}}_{LSC}}
+\newcommand{\precNSLSC}{\mathcal{P}_{LSC}^{NS}}
+\newcommand{\precNSiLSC}{\widehat{\mathcal{P}}_{LSC}^{NS}}
+\newcommand{\precNSiLSCLIST}{\hat{\mathcal{P}}_{LSC}^{NS}}
+%\newcommand{\bL}{L} % block L
+%\newcommand{\bLt}{L^{t}}
+\newcommand{\ExactW}{W}
+\newcommand{\gendiagM}{\widehat{W}}
+\newcommand{\diagW}{\widehat{W}}
+
+\newcommand{\pmm}{M_{p}} % Pressure mass matrix
+\newcommand{\diagpmm}{\widehat{M}_{p}}
+\newcommand{\vmm}{M_{u}} % velocity mass matrix
+\newcommand{\diagvmm}{\widehat{M}_{u}}
+\newcommand{\cmm}{M_{l}} % constrained mass matrix
+\newcommand{\diagcmm}{\widehat{M}_{l}}
+\newcommand{\gmm}{M} % general mass matrix
+\newcommand{\diaggmm}{\widehat{M}}
+
+
+
+\newcommand{\schur}{S}
+\newcommand{\schurapprox}{\tilde{S}}
+\newcommand{\schurLSC}{S_{LSC}}
+\newcommand{\schurPCD}{S_{PCD}}
+
+% This is from the full preconditioner, the augmentation one.
+\newcommand{\fullL}{L}
+% This one can be added to the NS momentum F block.
+\newcommand{\subLMomentumSized}{\widehat{L}} % 
+\newcommand{\subL}{\widehat{L}} % 
+
+% F block from NSE
+\newcommand{\momentumF}{F}
+% Modified F block.
+\newcommand{\modMomentumF}{\widehat{\momentumF}}
+\newcommand{\modMomentumFLIST}{\hat{\momentumF}}
+
+% Discrete divergence block B
+\newcommand{\divergenceBMat}{B}
+\newcommand{\nsB}{B}
+\newcommand{\nsF}{F}
+\newcommand{\nsFa}{F_{a}}
+\newcommand{\nsBt}{B^{T}}
+\newcommand{\nsP}{P} % pressure poission block
+\newcommand{\nsBQBt}{\nsB\diagvmm^{-1}\nsBt}
+\newcommand{\nsL}{L}
+\newcommand{\nsLt}{L^{T}}
+\newcommand{\nsW}{W}
+\newcommand{\nsInvW}{W^{-1}}
+\newcommand{\nsLMo}{\widehat{L}}
+\newcommand{\nsLMot}{\widehat{L}^{T}}
+
+
+\newcommand{\nsFbb}{F_{bb}}
+\newcommand{\nsFbl}{F_{b\ell}}
+\newcommand{\nsFlb}{F_{\ell b}}
+\newcommand{\nsFll}{F_{\ell \ell}}
+
+\newcommand{\nsFllSchur}{S_{\ell \ell}}
+
+% Stuff in analysis:
+% New F which contains L, but not B.
+\newcommand{\nstF}{\tilde{F}}
+% Like nstF but augmented.
+\newcommand{\nstFa}{\tilde{F}_a}
+
+% Expanded B to include o block of size of constaints.
+\newcommand{\nstB}{\tilde{B}}
+\newcommand{\nstBt}{\tilde{B}^{T}}
+
+
+
+% Consistent pressure-Poisson matrix P = B \hat{Q} B^T
+\newcommand{\consistentPressurePoissonMat}{P}
+
+\newcommand{\reyparam}{Re}
+\newcommand{\subprobeig}{\tilde{\lambda}}
+\newcommand{\seigi}{\tilde{\lambda}_i}
+\newcommand{\seigr}{\tilde{\lambda}_r}
+
+%eigenvectors for analysis
+\newcommand{\evns}{\linv_{ns}}
+\newcommand{\evlgr}{\linv_{\ell}}
+\newcommand{\evp}{\linv_{p}}
+\newcommand{\evu}{\linv_{u}}
+\newcommand{\evb}{\linv_{b}}
+\newcommand{\evec}[1]{\linv_{#1}}
+
+\newcommand{\FSizedLTWL}{\wscaling\subLMomentumSized^\raytran\gendiagM^{\rayinv}\subLMomentumSized}
+
+% Preconditioner splitting for relaxation methods, M and N
+\newcommand{\precsplitM}{\tilde{M}}
+\newcommand{\precsplitN}{\tilde{N}}
+
+% ILU preconditioner
+\newcommand{\ILUL}{\tilde{L}}
+\newcommand{\ILUU}{\tilde{U}}
+
+
+% For graphs
+% Type
+\newcommand{\RRLoglogplot}{Log-log plot of}
+\newcommand{\RRSemilogplot}{Semi-log plot of}
+\newcommand{\RRExecution}{execution times (s)}
+\newcommand{\RRIterasion}{iteration counts}
+\newcommand{\RRFuncOfDis}{as a function of the problem size}
+\newcommand{\RRPE}{the GMRES$+\precE$ solver}
+\newcommand{\RRPELSC}{the GMRES$+\precLSC$ solver}
+\newcommand{\RRPALSC}{the GMRES$+\preciLSC$ solver}
+
+% For tables
+\newcommand{\RRGMRESIts}{The average number of iterations taken by}
+\newcommand{\RRGMRESExec}{The execution times (s) taken by}
+\newcommand{\LLGMRESIts}{the average number of iterations taken by}
+\newcommand{\LLGMRESExec}{the execution times (s) taken by}
+
+\newcommand{\RRBlockApproxF}{using different block approximations of
+  $\modMomentumF$ in the LSC preconditioner}
+\newcommand{\RRSmoother}{with different smoothers and different $V-$cycles used for the AMG approximation of the $\modMomentumF$ block}
+\newcommand{\RRStrnStudy}{for varying strength of dependence parameter
+  $\strn$ in the AMG approximation of the $\modMomentumF$ block within the LSC
+  preconditioner}
+\newcommand{\RRJdampStudy}{for varying Jacobi damping parameter
+  $\jdamp$ for the AMG approximation of the $\modMomentumF$ block within the LSC
+  preconditioner}
+
+
+% For Both?
+\newcommand{\RRRESareFOR}{The results are presented for}
+
+
+

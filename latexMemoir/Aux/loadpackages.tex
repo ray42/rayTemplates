@@ -1,0 +1,195 @@
+
+\usepackage[font={small,it}]{caption}
+\usepackage[font={small,it},labelformat=simple]{subcaption}
+\renewcommand\thesubfigure{(\alph{subfigure})}
+
+
+\usepackage{rotating}
+
+\usepackage[toc,page]{appendix}
+\usepackage{lscape}
+\usepackage[all]{xy}
+\usepackage{wrapfig}
+\usepackage{multicol}
+\usepackage{multirow,bigdelim}
+%\usepackage{multirow}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{nomencl}
+%\usepackage[stable,bottom]{footmisc}
+%\raggedbottom
+%\setlength{\parskip}{0pt}
+% \setlength{\parskip}{1cm plus4mm minus3mm}
+
+\usepackage[linesnumbered,ruled,vlined,algochapter]{algorithm2e}
+\usepackage{algpseudocode} % To use algorithmicx
+%\usepackage{algorithmic} % For pseudo code
+%\usepackage[chapter]{algorithm} % to wrap your algorithmic code in an algorithm environment 
+%\usepackage{pseudocode}
+\usepackage{etex}
+
+% Used to create tree diagrams
+\usepackage{forest}
+
+% The below does not work, it clashes with kboardermatrix :(
+%\usepackage{arydshln}
+\usepackage[framemethod=TikZ]{mdframed} % For my framed boxes
+
+\numberwithin{equation}{section}
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\def\HiLi{\leavevmode\rlap{\hbox to \hsize{\color{yellow!50}\leaders\hrule height .8\baselineskip depth .5ex\hfill}}}
+
+% This is to use \cmidrule[2pt]{2-3}
+\usepackage{booktabs} % I have not used this yet.
+
+\makeatletter
+\newcommand{\thickhline}{%
+    \noalign {\ifnum 0=`}\fi \hrule height 2pt
+    \futurelet \reserved@a \@xhline
+}
+
+% Use this for a thick vertical line, "
+\newcolumntype{"}{@{\hskip\tabcolsep\vrule width 2pt\hskip\tabcolsep}}
+
+%% Thick cline
+\newcommand{\thickcline}[1]{%
+    \@thickcline #1\@nil%
+}
+
+\def\@thickcline#1-#2\@nil{%
+  \omit
+  \@multicnt#1%
+  \advance\@multispan\m@ne
+  \ifnum\@multicnt=\@ne\@firstofone{&\omit}\fi
+  \@multicnt#2%
+  \advance\@multicnt-#1%
+  \advance\@multispan\@ne
+  \leaders\hrule\@height2pt\hfill %% Change width here
+  \cr
+  \noalign{\vskip-1pt}%
+}
+\makeatother
+
+
+
+% Make sure footnote doesn't span across pages
+\interfootnotelinepenalty=10000
+%\interfootnotelinepenalty=\@M
+
+
+% Doing boarder matrices
+\makeatletter
+\def\bbordermatrix#1{\begingroup \m@th
+  \@tempdima 4.75\p@
+  \setbox\z@\vbox{%
+    \def\cr{\crcr\noalign{\kern2\p@\global\let\cr\endline}}%
+    \ialign{$##$\hfil\kern2\p@\kern\@tempdima&\thinspace\hfil$##$\hfil
+      &&\quad\hfil$##$\hfil\crcr
+      \omit\strut\hfil\crcr\noalign{\kern-\baselineskip}%
+      #1\crcr\omit\strut\cr}}%
+  \setbox\tw@\vbox{\unvcopy\z@\global\setbox\@ne\lastbox}%
+  \setbox\tw@\hbox{\unhbox\@ne\unskip\global\setbox\@ne\lastbox}%
+  \setbox\tw@\hbox{$\kern\wd\@ne\kern-\@tempdima\left[\kern-\wd\@ne
+    \global\setbox\@ne\vbox{\box\@ne\kern2\p@}%
+    \vcenter{\kern-\ht\@ne\unvbox\z@\kern-\baselineskip}\,\right]$}%
+  \null\;\vbox{\kern\ht\@ne\box\tw@}\endgroup}
+\makeatother
+
+
+\usepackage{kbordermatrix}% http://www.hss.caltech.edu/~kcb/TeX/kbordermatrix.sty
+
+
+%\renewcommand*{\algorithmcfname}{ASM Spec.}% Algorithm name
+%\usepackage{dcounter}% http://ctan.org/pkg/dcounter
+%\counterstyle{<section>}%
+%\DeclareDynamicCounter{algocf}% <- algocf will be 'dynamic' within <section>
+
+\newcounter{preccounter}[chapter]
+\newenvironment{preconditioner}[1][h]
+  {\refstepcounter{preccounter}
+    \renewcommand*{\algorithmcfname}{Preconditioner}
+  \LinesNotNumbered
+    \LinesNumberedHidden
+    \begin{algorithm}[#1]
+  \DontPrintSemicolon 
+      \renewcommand\thealgocf{\thechapter.\arabic{preccounter}}}
+  {\end{algorithm}\addtocounter{algocf}{-1}}
+
+\newcommand{\precref}[1]{Preconditioner~\ref{#1}}
+
+
+\newcommand*{\threesim}{
+\mathrel{\vcenter{\offinterlineskip
+\hbox{$\sim$}\vskip-.35ex\hbox{$\sim$}\vskip-.35ex\hbox{$\sim$}}}}
+
+
+% For matrices in implementation section.
+\usepackage{blkarray}
+\usepackage{placeins}
+%\newcounter{preccounter}
+%\newenvironment{Preconditioner}
+%  {\refstepcounter{preccounter}%
+%    \renewcommand*{\algorithmcfname}{Preconditioner}%
+%    \begin{algorithm}\renewcommand\thealgocf{\arabic{preccounter}}}
+%  {\end{algorithm}\addtocounter{algocf}{-1}}
+
+%\newcommand{\precref}[1]{Preconditioner \ref{#1}}
+%\newcounter{preccount}
+%\newcounter{temp}
+%
+%\newenvironment{preccount}[1][ps]{%
+%  \setcounter{temp}{\value{algorithm}}%
+%  \setcounter{algorithm}{\value{preccount}}%
+%  \refstepcounter{preccount}%
+%  \begin{algorithm}[#1]%
+%    \floatname{algorithm}{Preconditioner}%
+%  }{\end{algorithm}\setcounter{algorithm}{\value{temp}}}
+%
+%\floatname{preccount}{Preconditioner}
+%\crefname{hdps}{preconditioner}{preconditioners}
+%\Crefname{hdps}{{Preconditioner}{Preconditioners}
+
+%\crefname{algocf}{alg.}{algs.}
+%\Crefname{algocf}{Algo}{Algos}
+%\crefalias{hdps}{algocf}
+
+
+
+% new environment syntax:
+%\newenvironment{name}[num]{before}{after}
+%\newcounter{precc}
+%\newenvironment{preconditioner}
+%  {\stepcounter{precc}
+%    \renewcommand{\algorithmcfname}{Preconditioner}
+%    \begin{algorithm}\renewcommand\thealgocf{\arabic{precc}}}
+%  {\end{algorithm}\addtocounter{algocf}{-1}}
+%% Set up the clever ref counter.
+%\crefname{algocf}{Preconditioner}{preconditioners}
+%\Crefname{algocf}{Preconditioner}{preconditioners}
+%\renewcommand*{\algorithmcfname}{}% Algorithm name
+%\usepackage{dcounter}% http://ctan.org/pkg/dcounter
+%\counterstyle{<section>}%
+%\DeclareDynamicCounter{algocf}% <- algocf will be 'dynamic' within <section>
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% New Cpp stuff
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Margin notes
+\newcommand{\marginnote}[1]{\marginpar{\footnotesize #1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+

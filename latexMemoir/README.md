@@ -1,0 +1,2 @@
+Memoir class template :)
+
