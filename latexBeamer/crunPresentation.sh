@@ -8,12 +8,12 @@ set -o nounset
 FILE=""
 if [ $# -eq 0 ]
   then
-  FILE="RNOSchlumberger"
+  FILE="presentation"
 else
   FILE="${1}"
 fi
 
 latexmk -C ${FILE}.tex \
   && rm -rf ${FILE}.bbl \
-  && ./runlatexmk.sh ${FILE}.tex
+  && ./runlatexmkPresentation.sh ${FILE}.tex
 

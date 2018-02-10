@@ -3,6 +3,7 @@
 set -o errexit
 set -o nounset
 
+
 #http://mg.readthedocs.io/latexmk.html
 
-latexmk -pdfps --shell-escape -pvc ${1}
+latexmk -pdf --shell-escape -pvc ${1}
