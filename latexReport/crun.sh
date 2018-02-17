@@ -8,7 +8,7 @@ set -o nounset
 FILE=""
 if [ $# -eq 0 ]
   then
-  FILE="RNOSchlumberger"
+  FILE="main"
 else
   FILE="${1}"
 fi
