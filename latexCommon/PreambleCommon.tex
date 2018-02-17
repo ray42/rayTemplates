@@ -1038,17 +1038,764 @@ morekeywords={for, For, to, downto, input, output, return, datatype,
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%---------------------------------------------------------------------------
+% enumerate number per section
+%---------------------------------------------------------------------------
+
+\usepackage{enumitem}
+% Note: This also allows us to do something like this:
+%\begin{enumerate}[label=\FOO*]
+% \alph* = a, \Alph* = A, \roman* = i, ii, etc...
+% Put in parenthesis for parenthesis. I.e.
+% (\alph*) = (a)
+% Label: \alph, \Alph, \arabic, \roman and \Roman
+
+\setenumerate[1]{label=\thesection.\arabic*.}
+\setenumerate[2]{label*=\arabic*.}
+
+
+%---------------------------------------------------------------------------
+% Other packages, maybe not used.
+%---------------------------------------------------------------------------
+
+%this is obsolete, do not use it if someone suggests it.
+%\usepackage{subfigure}
+
+% sidecap  --  Typeset captions sideways
+%\usepackage{sidecap}
 
 
 
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Mathematic symbols
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% from mathtools, 
+% floor and ceiling, usage:
+% \floor*{ foo }
+% and the unstarred version takes an optional argument that can be 
+% \big, \Big, etc
+% \abs[\Bigg]{\frac{a}{b}}
+%% NOTE: for \brace - use \set
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\DeclarePairedDelimiter\braket{\langle}{\rangle} % < >
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}      % | |
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}     %|| ||
+\DeclarePairedDelimiter\paren{\lparen}{\rparen}  % ( )
+\DeclarePairedDelimiter\brce{\lbrace}{\rbrace}   % { }
+\DeclarePairedDelimiter\brck{\lbrack}{\rbrack}   % [ ]
+\DeclarePairedDelimiter\Brck{\lBrack}{\rBrack}   % [[ ]]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Auxiliary symbols, like conjuate
+
+% The below monstrocity is for a hacked widebar, used for \conj
+% See https://tex.stackexchange.com/questions/16337/can-i-get-a-widebar-without-using-the-mathabx-package/60253#60253
+%\makeatletter
+%\let\save@mathaccent\mathaccent
+%\newcommand*\if@single[3]{%
+%  \setbox0\hbox{${\mathaccent"0362{#1}}^H$}%
+%  \setbox2\hbox{${\mathaccent"0362{\kern0pt#1}}^H$}%
+%  \ifdim\ht0=\ht2 #3\else #2\fi
+%  }
+%%The bar will be moved to the right by a half of \macc@kerna, which is computed by amsmath:
+%\newcommand*\rel@kern[1]{\kern#1\dimexpr\macc@kerna}
+%%If there's a superscript following the bar, then no negative kern may follow the bar;
+%%an additional {} makes sure that the superscript is high enough in this case:
+%\newcommand*\widebar[1]{\@ifnextchar^{{\wide@bar{#1}{0}}}{\wide@bar{#1}{1}}}
+%%Use a separate algorithm for single symbols:
+%\newcommand*\wide@bar[2]{\if@single{#1}{\wide@bar@{#1}{#2}{1}}{\wide@bar@{#1}{#2}{2}}}
+%\newcommand*\wide@bar@[3]{%
+%  \begingroup
+%  \def\mathaccent##1##2{%
+%%Enable nesting of accents:
+%    \let\mathaccent\save@mathaccent
+%%If there's more than a single symbol, use the first character instead (see below):
+%    \if#32 \let\macc@nucleus\first@char \fi
+%%Determine the italic correction:
+%    \setbox\z@\hbox{$\macc@style{\macc@nucleus}_{}$}%
+%    \setbox\tw@\hbox{$\macc@style{\macc@nucleus}{}_{}$}%
+%    \dimen@\wd\tw@
+%    \advance\dimen@-\wd\z@
+%%Now \dimen@ is the italic correction of the symbol.
+%    \divide\dimen@ 3
+%    \@tempdima\wd\tw@
+%    \advance\@tempdima-\scriptspace
+%%Now \@tempdima is the width of the symbol.
+%    \divide\@tempdima 10
+%    \advance\dimen@-\@tempdima
+%%Now \dimen@ = (italic correction / 3) - (Breite / 10)
+%    \ifdim\dimen@>\z@ \dimen@0pt\fi
+%%The bar will be shortened in the case \dimen@<0 !
+%    \rel@kern{0.6}\kern-\dimen@
+%    \if#31
+%      \overline{\rel@kern{-0.6}\kern\dimen@\macc@nucleus\rel@kern{0.4}\kern\dimen@}%
+%      \advance\dimen@0.4\dimexpr\macc@kerna
+%%Place the combined final kern (-\dimen@) if it is >0 or if a superscript follows:
+%      \let\final@kern#2%
+%      \ifdim\dimen@<\z@ \let\final@kern1\fi
+%      \if\final@kern1 \kern-\dimen@\fi
+%    \else
+%      \overline{\rel@kern{-0.6}\kern\dimen@#1}%
+%    \fi
+%  }%
+%  \macc@depth\@ne
+%  \let\math@bgroup\@empty \let\math@egroup\macc@set@skewchar
+%  \mathsurround\z@ \frozen@everymath{\mathgroup\macc@group\relax}%
+%  \macc@set@skewchar\relax
+%  \let\mathaccentV\macc@nested@a
+%%The following initialises \macc@kerna and calls \mathaccent:
+%  \if#31
+%    \macc@nested@a\relax111{#1}%
+%  \else
+%%If the argument consists of more than one symbol, and if the first token is
+%%a letter, use that letter for the computations:
+%    \def\gobble@till@marker##1\endmarker{}%
+%    \futurelet\first@char\gobble@till@marker#1\endmarker
+%    \ifcat\noexpand\first@char A\else
+%      \def\first@char{}%
+%    \fi
+%    \macc@nested@a\relax111{\first@char}%
+%  \fi
+%  \endgroup
+%}
+%\makeatother
+%\newcommand{\conj}[1]{\widebar{#1}}
+\newcommand{\conj}[1]{\overline{#1}} %conjugate
+\newcommand{\rrT}{\intercal} %transpose
+\newcommand{\rrInv}{{-1}} %inverse
+\newcommand{\rrxor}{\textasciicircum} % XOR, ^
+
+\DeclareMathOperator{\diag}{diag} % diag
+\DeclareMathOperator{\lcm}{lcm} % Least common multiple
+
+%%%%%%%%%% This is for variables
+% https://tex.stackexchange.com/questions/98149/to-imply-a-dash-and-not-minus-sign-in-math-mode
+% This is so that hyphen will get interpreted as hyphen in mathmode, not as
+% minus sign.
+% Non-italic version
+\newcommand{\varA}[1]{{\operatorname{#1}}}
+% Italic version
+\newcommand{\varB}[1]{{\ensuremath{\operatorname{\mathit{#1}}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Use the set with \given, e.g.
+%$\set{ x \given x > 0 }$
+%$\set[\big]{ x \given x > 0 }$
+%$\set[\Big]{ x \given x > 0 }$
+%$\set[\bigg]{ x \given x > 0 }$
+%$\set[\Bigg]{ x \given x > 0 }$
+%$\set*{ x \given x > 0 \rule{0cm}{2cm} }$ % \rule is just here so you can see that it autostretches
+\DeclarePairedDelimiterX\set[1]\lbrace\rbrace{\def\given{\;\delimsize\vert\;}#1}
+
+% Probability, we use \Pr\set*{} to get Pr{...}
+% Usage: \Prr[optional: power]{mandatory X}
+% o = optional, m = mandatory
+\NewDocumentCommand{\Prr}{o m}{%
+  \IfValueTF{#1}{%
+    \Pr^{#1}\set*{#2}%
+  }{%
+    \Pr\set*{#2}%
+  }%
+}
+
+% Usage: \Err[optional: power]{mandatory X}
+\DeclareMathOperator{\Expct}{E}
+% o = optional, m = mandatory
+\NewDocumentCommand{\Err}{o m}{%
+  \IfValueTF{#1}{%
+    \Expct^{#1}\brck*{#2}%
+  }{%
+    \Expct\brck*{#2}%
+  }%
+}
+
+% Usage: \Vrr[optional: power]{mandatory X}
+\DeclareMathOperator{\Var}{Var}
+% o = optional, m = mandatory
+\NewDocumentCommand{\Vrr}{o m}{%
+  \IfValueTF{#1}{%
+    \Var^{#1}\brck*{#2}%
+  }{%
+    \Var\brck*{#2}%
+  }%
+}
+
+% Indicator vairable, used in ch5 CLRS
+% Usage: \Irr[optional: power]{mandatory X}
+\DeclareMathOperator{\Indct}{I}
+% o = optional, m = mandatory
+\NewDocumentCommand{\Irr}{o m}{%
+  \IfValueTF{#1}{%
+    \Indct^{#1}\set*{#2}%
+  }{%
+    \Indct\set*{#2}%
+  }%
+}
+
+% Black-Height, used in ch13 CLRS.
+% Usage: \Bh[optional: power]{mandatory X}
+\DeclareMathOperator{\RRWBh}{bh}
+% o = optional, m = mandatory
+\NewDocumentCommand{\Bh}{o m}{%
+  \IfValueTF{#1}{%
+    \RRWBh^{#1}\paren*{#2}%
+  }{%
+    \RRWBh\paren*{#2}%
+  }%
+}
 
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Usage: \Reach[optional: via node]
+% o = optional, m = mandatory
+\NewDocumentCommand{\Reach}{o}{
+  \IfValueTF{#1}{
+    \overset{#1}{\leadsto}
+  }{
+    \leadsto
+  }
+}
 
 
+% https://tex.stackexchange.com/questions/5502/how-to-get-a-mid-binary-relation-that-grows
+% usage: \remiddle|
+% NOTE: use \given instead
+%\newcommand{\relmiddle}[1]{\mathrel{}\middle#1\mathrel{}}
+
+% big-o notation for complexity
+% Also tests for empty, so I can use \bigo{} and it doesn't provide
+% brackets.
+\DeclareRobustCommand{\comBigOh}[1]{
+\ifthenelse{\equal{#1}{}}{\mathcal{O}}
+                         {\mathcal{O}\left(#1\right)}}
+
+\DeclareRobustCommand{\comLittleOh}[1]{
+\ifthenelse{\equal{#1}{}}{o}
+                         {o\left(#1\right)}}
+% theta- for worse case complexity.
+% Okay, this is not worse case. I should call these comTheta and such.
+\DeclareRobustCommand{\comTheta}[1]{
+\ifthenelse{\equal{#1}{}}{\Theta}
+                         {\Theta\left(#1\right)}}
+
+\DeclareRobustCommand{\comBigOmega}[1]{
+\ifthenelse{\equal{#1}{}}{\Omega}
+                         {\Omega\left(#1\right)}}
+\DeclareRobustCommand{\comLittleOmega}[1]{
+\ifthenelse{\equal{#1}{}}{\omega}
+                         {\omega\left(#1\right)}}
+
+
+%% Set notation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% empty set:
+% Try \varnothing from the amssymb package. It is perfectly round, and the 
+% comprehensive LaTeX symbol list states that it is preferred by many to 
+% \emptyset.
+% https://tex.stackexchange.com/questions/22798/nice-looking-empty-set
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\newcommand{\setEmpty}{\emptyset}%empty set
+\newcommand{\setPrime}{\mathbb{P}} %prime numbers
+\newcommand{\setWhole}{\mathbb{W}} %whole numbers
+\newcommand{\setNat}{\mathbb{N}} %natural numbers
+\newcommand{\setInt}{\mathbb{Z}} %integers,
+\newcommand{\setIrrat}{\mathbb{I}} %irrational numbers
+\newcommand{\setRat}{\mathbb{Q}} %rational numbers
+\newcommand{\setReal}{\mathbb{R}} %real numbers
+\newcommand{\setCom}{\mathbb{C}} %complex numbers
+
+
+%% Constants %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\ct[1]{\text{\rmfamily\upshape #1}}
+\newcommand{\rNatNum}{\ct{e}}% natural number
+\newcommand{\rGoldRat}{\upphi} % Golden Ratio
+\newcommand{\rPi}{\uppi} % pi
+\newcommand{\rIm}{\ct{i}}% Imaginary
+\newcommand{\zmat}{0} % zero matrix
+\newcommand{\eyemat}{I} % identity matrix
+
+
+%% Integrals and differentials %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% https://tex.stackexchange.com/questions/60545/should-i-mathrm-the-d-in-my-integrals
+\newcommand*{\diff}[1]{
+\ifthenelse{\isempty{#1}}{\mathop{}\!\mathrm{d}}
+                         {\mathop{}\!\mathrm{d^{#1}}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% END OF Mathematic symbols
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% diagbox to diagonally split a cell in a table
+% https://ctan.org/pkg/diagbox
+% Usage: \diagbox{Col name}{Row name}
+% https://tex.stackexchange.com/questions/110018/professional-slashbox-alternative
+\usepackage{diagbox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Long table, see: http://tex.stackexchange.com/questions/301227/how-to-make-table-split-in-two-pages
+\usepackage{longtable}
+% Usage:
+%To switch from a table/tabular combination to a longtable setup, only the
+%following changes are required:
+%
+%1)Terminate the \caption directive with a double backslash;
+%2)organize the header and footer material with \endhead, \endfoot, and 
+%  possibly \endfirsthead and \endlastfoot directives; and
+%3)omit the \centering directive that's usually provided for tabular 
+%  material.
+%
+%\begin{longtable}{ccc}
+%\caption{With \texttt{longtable} environment}\label{tab:b}\\
+%% header and footer information
+%\hline
+%H1 & H2 & H3 \\
+%\hline
+%\endhead
+%\hline
+%\endfoot
+%% body of table
+%123 & 456 & 789 \\
+%\end{longtable}
+
+% Now making it smaller with footnotesize
+%\begin{footnotesize}
+%\begin{longtable}{|l p{10cm}|}
+%\caption[Operations to Find Elements in an Associative Container]
+%{Operations to Find Elements in an Associative Container}
+%\label{tabC11N7OperationsToFindElementsInAnAssociativeContainer}\\
+%% header and footer information
+%\hline
+%\endfirsthead
+%\hline
+%\endlastfoot
+%% body of table
+%\multicolumn{2}{|l|}{\textbf{Type Aliases}} \\
+%\ctt{iterator}&Type of the iterator for this container type \\
+%\end{longtable}
+%\end{footnotesize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% How to use itemize inside table? Use fake items:
+% http://tex.stackexchange.com/questions/150492/how-to-use-itemize-in-table-environment
+\usepackage{booktabs}% http://ctan.org/pkg/booktabs
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% NEW COMMANDS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Multiline cell: (rayray multi cell)
+\newcommand{\rrmcell}[2][c]{%
+  \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+% From here: http://tex.stackexchange.com/questions/2441/how-to-add-a-forced-line-break-inside-a-table-cell
+% Usage:
+%Foo bar & \specialcell{Foo\\bar} & Foo bar \\    % vertically centered
+%Foo bar & \specialcell[t]{Foo\\bar} & Foo bar \\ % aligned with top rule
+%Foo bar & \specialcell[b]{Foo\\bar} & Foo bar \\ % aligned with bottom rule
+%For those wanting to control the horizontal alignment, 
+% change c@ to l@ or r@ (or make it another parameter like the vertical 
+% alignment?)
+% Note: This doesn't seem to work with \ctt, so I'll use parbox:
+% \parbox[t]{5cm}{foo\\bar}
+
+
+%---------------------------------------------------------------------------
+% Custom higlighting.
+%---------------------------------------------------------------------------
+% use \ctt{} for code
+%     \rnhl{} for highlighting importanting keywords.
+%     \rnblue{} for random notes
+%     \rngreen{} for random notes
+
+
+
+%\definecolor{darkred}{rgb}{0.8,0.1,0.1}
+
+
+% We use the soul package to do high-lighting (change background colour)
+% of code words. We are not using \colorbox since text inside \colorbox can 
+% not be split into several lines if it is too long. So the macro is most 
+% suited for coloring a few words. If you want to color several sentences 
+% which spread across several lines, it is better to use soul.
+\usepackage{soul} % \sethlcolor{}, \hl
+                  % \setulcolor{}, \ul
+
+
+% Now use hl to change the background.
+% Note: Putting \hl INSIDE \textcolor is important, if we put it outside,
+% it would not work.
+
+% The command \sethlcolor is fragile and will break in moving arguments. 
+% You can either \protect it in moving arguments or, better, declare it 
+% robust from the beginning:
+\DeclareRobustCommand{\ctt}[1]{\texttt{\sethlcolor{light-gray}\hl{#1}}}
+\DeclareRobustCommand{\cit}[1]{\textit{\sethlcolor{light-gray}\hl{#1}}}
+\DeclareRobustCommand{\cbt}[1]{\textbf{\texttt{\sethlcolor{light-gray}\hl{#1}}}}
+
+% To be used in section titles, since we need texorpdfstring.
+% Reason: The PDF bookmarks are a different thing than the table of 
+% contents. The bookmarks are not typeset by TeX: they simply are strings 
+% of characters, so no math or general formatting instructions are allowed.
+%\DeclareRobustCommand{\sctt}[1]{\texorpdfstring{\ctt{#1}}\texorpdfstring{\,}}
+
+%$ ray ray text less than, greater than
+%\newcommand*{\cttltgt}[1]{\textless{} #1 \textgreater{}}
+% to work.
+
+\definecolor{mynotescolourblue}{rgb}{0.0,0.0,0.3}
+\definecolor{mynotescolourgreen}{rgb}{0, 0.3, 0}
+\colorlet{mynotescolourred}{red!50!black!90!}
+
+%% Now we do a few more of these, I like these...
+%\DeclareRobustCommand{\hlcyan}[1]{{\sethlcolor{cyan}\hl{#1}}}
+% rnhl = ray notes high light
+% for highlighting keywords.
+\DeclareRobustCommand{\rrhl}[1]{{\textcolor{mynotescolourred}{\sethlcolor{GreenYellow}\hl{\textbf{#1}}}}}
+
+% ray attention: for things I should pay more attention to, for example, if 
+% the book says "we read from a file", I may not pay attention to the word
+% "file" much, although it is vital to the design of my program.
+\DeclareRobustCommand{\rra}[1]{\setulcolor{mynotescolourred}\ul{#1}}
+
+% rrgreen for green text for things I understand, but wanted to re-word.
+\DeclareRobustCommand{\rrgreen}[1]{{\textcolor{mynotescolourgreen}{#1}}}
+% Italic version
+\DeclareRobustCommand{\rrgreenit}[1]{\rrgreen{\textit{#1}}}
+% Typewriter version
+\DeclareRobustCommand{\rrgreentt}[1]{\texttt[mynotescolourgreen]{#1}}
+
+
+% rrred for red text for things I do not understand.
+\DeclareRobustCommand{\rrred}[1]{{\textcolor{mynotescolourred}{#1}}}
+% Italic version
+\DeclareRobustCommand{\rrredit}[1]{\rrred{\textit{#1}}}
+% Typewriter version
+\DeclareRobustCommand{\rrredtt}[1]{\texttt[mynotescolourred]{#1}}
+
+
+% rrblue blue text. There is not yet a specific use for this.
+\DeclareRobustCommand{\rrblue}[1]{{\textcolor{mynotescolourblue}{#1}}}
+% Italic version
+\DeclareRobustCommand{\rrblueit}[1]{\rrblue{\textit{#1}}}
+% Typewriter version
+\DeclareRobustCommand{\rrbluett}[1]{\texttt[mynotescolourblue]{#1}}
+
+
+% Usage: \source{Title}{Url}
+% Title will be bold and underline. Url will be red{textbf{Source}}: Url
+\DeclareRobustCommand{\sourceurl}[2]
+{\noindent{\textbf{\underline{#1}}}\newline
+ \textcolor{mynotescolourred}{\textbf{Source: }}\url{#2}}
+
+\DeclareRobustCommand{\bkpgrf}[1]{\textbf{\rrred{BookPage: #1}}}
+
+% Usage: \mdframedrule = a horizontal line for division.
+\DeclareRobustCommand{\mdframedrule}{\noindent\rule{\textwidth}{1pt}}
+
+%\newcommand{\pagerule}{\noindent\hrulefill}
+%\newcommand{\dpagerule}{\noindent\hrulefill\newline\noindent\hrulefill}
+
+
+
+
+\newlength{\qqseplinewidth}
+\newlength{\qqseplinesep}
+\setlength{\qqseplinewidth}{1mm}
+\setlength{\qqseplinesep}{2mm}
+\colorlet{qqsepline}{PaleVioletRed3}
+
+\newcommand*{\qqsepline}{%
+  \par
+  \vspace{\dimexpr\qqseplinesep+.5\parskip}%
+  \cleaders\vbox{%
+    \begingroup % because of color
+      \color{qqsepline}%
+      \hrule width\linewidth height\qqseplinewidth
+    \endgroup
+  }\vskip\qqseplinewidth
+  \vspace{\dimexpr\qqseplinesep-.5\parskip}%
+}
+
+\newcommand*{\qasepline}{\noindent\hfil\rule{0.5\textwidth}{.4pt}\hfil}
+
+%https://tex.stackexchange.com/questions/19902/drawing-horizontal-line-same-width-as-the-page-width
+\newcommand*{\linemarginlength}{\noindent\makebox[\linewidth]{\rule{\textwidth}{1pt}}}
+\newcommand*{\linepagelength}{\noindent\makebox[\linewidth]{\rule{\paperwidth}{1pt}}}
+
+
+
+
+\newcommand*{\exersepline}{\noindent\hfil\colorbox{qqsepline}{\rule{0.5\textwidth}{.4pt}}\hfil}
+
+
+\newlength{\rrseplinewidth}
+\newlength{\rrseplinesep}
+\setlength{\rrseplinewidth}{1mm}
+\setlength{\rrseplinesep}{2mm}
+\colorlet{rrsepline}{BlueGreen}
+
+\newcommand*{\rrsepline}{%
+  \par
+  \vspace{\dimexpr\rrseplinesep+.5\parskip}%
+  \cleaders\vbox{%
+    \begingroup % because of color
+      \color{rrsepline}%
+      \hrule width\linewidth height\rrseplinewidth
+    \endgroup
+  }\vskip\rrseplinewidth
+  \vspace{\dimexpr\rrseplinesep-.5\parskip}%
+}
+
+\newcommand*{\rrrsepline}{\noindent\hfil\colorbox{rrsepline}{\rule{0.5\textwidth}{.4pt}}\hfil}
+
+
+% Underlined and bold and newlined
+% the \phantomsection is for when we use label{rh:foo}
+\DeclareRobustCommand{\rrheaderunderline}[1]{\par\medskip\phantomsection\noindent\textbf{\underline{#1}}\medskip}
+\DeclareRobustCommand{\rrheader}[1]{\par\medskip\phantomsection\noindent{\normalsize\textbf{#1}}\medskip}
+\DeclareRobustCommand{\rrheaderlarge}[1]{\par\medskip\phantomsection\noindent{\large\textbf{#1}}\medskip}
+\DeclareRobustCommand{\rrheaderLarge}[1]{\par\medskip\phantomsection\noindent{\Large\textbf{#1}}\medskip}
+
+
+%\setlength{\parindent}{0pt}
+%\nonzeroparskip % I forgot why I needed this. But it doesn't
+% work in report mode.
+
+
+% For my own notes.
+\newcommand{\RayNotesBegin}{\rrsepline{}\begingroup\color{mynotescolourblue}}
+\newcommand{\RayNotesEnd}{\endgroup\rrsepline{}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% https://tex.stackexchange.com/questions/133113/continued-figures
+% continued figure coutners:
+
+%Before the continued figure add these lines:
+%
+%\renewcommand{\thefigure}{\arabic{figure} (Cont.)} or
+%\renewcommand{\thefigure}{\arabic{section}.\arabic{figure} (Cont.)}
+%\renewcommand{\thefigure}{\arabic{chapter}.\arabic{figure} (Cont.)}
+%\addtocounter{figure}{-1}
+%and after it these line:
+%
+%\renewcommand{\thefigure}{\arabic{figure}}
+%
+
+\usepackage{chngcntr}
+
+
+\usepackage{lipsum} % Just to put in some text
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Cleveref, allows using cref
+% NOTE: Cleverref has to be loaded LAST
+% https://tex.stackexchange.com/questions/148699/equation-reference-undefined-when-using-cref-and-packageamsmath
+% Otherwise it will not work:
+% However, care must be taken when using cleveref in conjunction with other 
+% packages that modify LaTeX's referencing system (see Section 11). 
+% Basically, cleveref must be loaded last.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[sort&compress, % on multiple refs sort them and write as range
+            capitalise, % Use Section not section etc.
+            noabbrev, % Use Table not Tab. etc.
+            nameinlink % Make the name (eg Section) part of the hyperlink
+            ]{cleveref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% New Theorems and environments, they have to come after loading cleverref
+%% and clever ref must be the last package loaded.
+%https://tex.stackexchange.com/questions/19104/cleveref-with-counters-with-same-name
+
+\newcounter{exer}[section]
+\newenvironment{exer}[1][]{\refstepcounter{exer}\par\medskip
+  \noindent\textbf{Exercise~\theexer:#1} \rmfamily}{\medskip}
+
+%\newtheoremstyle{exercise}
+%  {\topsep}   % above space
+%  {\topsep}   % below space
+%  {\itshape}  % body font
+%  {0pt}       % indent
+%  {\bfseries} % head font
+%  {}         % head punctuation
+%  {5pt plus 1pt minus 1pt} % HEADSPACE
+%  {}          % CUSTOM-HEAD-SPEC
+%
+%\theoremstyle{exercise}
+%\newcounter{exercises}[chapter]
+%\newtheorem{exer}[exercises]{Exercise}
+%%\newtheorem{exers}{Exer}
+%
+\counterwithin{exer}{section}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcounter{prob}[chapter]
+\newenvironment{prob}[1][]{\refstepcounter{prob}\par\medskip
+  \noindent\textbf{Problem~\theprob:#1} \rmfamily}{\medskip}
+
+%\newtheoremstyle{exercise}
+%  {\topsep}   % above space
+%  {\topsep}   % below space
+%  {\itshape}  % body font
+%  {0pt}       % indent
+%  {\bfseries} % head font
+%  {}         % head punctuation
+%  {5pt plus 1pt minus 1pt} % HEADSPACE
+%  {}          % CUSTOM-HEAD-SPEC
+%
+%\theoremstyle{exercise}
+%\newcounter{exercises}[chapter]
+%\newtheorem{exer}[exercises]{Exercise}
+%%\newtheorem{exers}{Exer}
+%
+\counterwithin{prob}{chapter}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%https://tex.stackexchange.com/questions/64931/using-newtheorem
+%The \newtheorem command has two mutually exlusive optional arguments:
+%
+%Using
+%\newtheorem{<name>}{<heading>}[<counter>]
+%will create an environment <name> for a theorem-like structure; the counter
+%for this structure will be subordinated to <counter>. 
+%
+%On the other hand, using
+%\newtheorem{<name>}[<counter>]{<heading>}
+%will create an environment <name> for a theorem-like structure; the counter
+%for this structure will share the previously defined <counter> counter.
+%
+%In the definition of defn you need to use the first optional argument of
+%\newtheorem to indicate that this environment shares the counter of the
+%previously defined thm environment.
+%
+%If the counters need to be subordinate to the section counter, use section
+%for the second optional argument of \newtheorem in the definition of thm.
+
+\newtheorem{theorem}{Theorem}[chapter]
+
+% A environment called corollary is created, the counter of this new
+% environment will be reset every time a new theorem environment is used.
+%\newtheorem{corollary}{Corollary}[theorem]
+% changed so it shares the counter with theorem:
+\newtheorem{corollary}[theorem]{Corollary}
+
+% In this case, the even though a new environment called lemma is created,
+% it will use the same counter as the theorem environment.
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+
+% change the end of proof symbol
+\renewcommand\qedsymbol{$\blacksquare$}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Continue with cleveref setup.
+
+
+% Call subsections sections
+%\crefname{subsection}{Section}{Sections}
+%\Crefname{subsection}{Section}{Sections}
+
+% Use the section symbol §
+\crefname{subsection}{\S}{\S\S}
+\Crefname{subsection}{\S}{\S\S}
+\crefname{section}{\S}{\S\S}
+\Crefname{section}{\S}{\S\S}
+
+
+% just use (...) for equations
+\crefformat{equation}{#2(#1)#3}
+\crefrangeformat{equation}{#3(#1)#4--#5(#2)#6}
+\crefmultiformat{equation}{(#2#1#3)}{ and~(#2#1#3)}{, (#2#1#3)}{ and~(#2#1#3)}
+
+% Except for start of sentences where we need to say "Equations"
+\Crefformat{equation}{Equation~#2(#1)#3}
+\Crefrangeformat{equation}{Equations~#3(#1)#4--#5(#2)#6}
+\Crefmultiformat{equation}{Equations~(#2#1#3)}{ and~(#2#1#3)}{, (#2#1#3)}{ and~(#2#1#3)}
+
+%\newcommand\crefpairconjunction{--}
+%\crefname{equation}{}{} % no "equation[s]" label mid-sentence
+%\Crefname{equation}{Equation}{Equations}
+
+% a reference for "this X"
+%\newcommand{\thisref}[1]{this \lcnamecref{#1}}
+%\newcommand{\Thisref}[1]{This \lcnamecref{#1}}
+
+% Need this for listings
+\crefname{lstlisting}{listing}{listings}
+\Crefname{lstlisting}{Listing}{Listings}
+
+% Need this for listings
+\crefname{exer}{exercise}{exercises}
+\Crefname{exer}{Exercise}{Exercises}
+
+% Need this for listings
+\crefname{prob}{problem}{problems}
+\Crefname{prob}{Problem}{Problems}
+
+%\crefname{lemma}{lemma}{lemmas}
+%\Crefname{lemma}{Lemma}{Lemmas}
+%\crefname{theorem}{theorem}{theorems}
+%\Crefname{theorem}{Theorem}{Theorems}
+
+
+
+% Teach hyperref how to handle cref inside sections, note, this is not used.
+% But I'm keeping it here so I know how to do this in the future.
+\pdfstringdefDisableCommands{\def\secexref#1{Example \ref{#1}}}
+\DeclareRobustCommand*{\refcfirst}{\ref*{ex:sqlgr}}
+
+% wrapper around cref to get the page number as well.
+\DeclareRobustCommand{\pagecref}[1]{\cref{#1} p.\pageref{#1}}
+\DeclareRobustCommand{\Pagecref}[1]{\Cref{#1} p.\pageref{#1}}
+
+% Used for referencing exercises for the answer sections
+%\DeclareRobustCommand{\Exerref}[1]{\noindent\textbf{\Pagecref{#1}:}}
+\newcommand*{\Exerref}[1]{\noindent\textbf{\Pagecref{#1}:}}
+
+
+%https://tex.stackexchange.com/questions/10102/multiple-references-to-the-same-footnote-with-hyperref-support-is-there-a-bett/10116#10116
+% How to use:
+% text...\footnote{\label{first}First footnote}
+% text...\cref{first}
+\crefformat{footnote}{#2\footnotemark[#1]#3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 

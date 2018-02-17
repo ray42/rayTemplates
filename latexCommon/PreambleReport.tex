@@ -1,0 +1,10 @@
+
+%https://tex.stackexchange.com/questions/24066/start-new-chapter-on-same-page
+% The \chapter command internally uses \cleardoublepage and \clearpage to 
+% add page breaks. Use the etoolbox package to selectively change the 
+% definition of \chapter.
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+\makeatother
+

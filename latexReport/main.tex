@@ -4,59 +4,6 @@
 \input{PreambleCommon}
 \input{PreambleReport}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-%---------------------------------------------------------------------------
-% enumerate number per section
-%---------------------------------------------------------------------------
-
-\usepackage{enumitem}
-% Note: This also allows us to do something like this:
-%\begin{enumerate}[label=\FOO*]
-% \alph* = a, \Alph* = A, \roman* = i, ii, etc...
-% Put in parenthesis for parenthesis. I.e.
-% (\alph*) = (a)
-% Label: \alph, \Alph, \arabic, \roman and \Roman
-
-
-%---------------------------------------------------------------------------
-% url, hyperref, bookmark, etc...
-%---------------------------------------------------------------------------
-
-\WarningFilter{hyperref}{You have enabled option `breaklinks'.}
-
-% url is loaded by hyperref, which is loaded by bookmark.
-
-% The command \PassOptionsToPackage (used below) tells LaTeX to behave as 
-% if its options were passed, when it finally loads a package. As you would 
-% expect from its name, \PassOptionsToPackage can deal with a list of 
-% options, just as you would have in the the options brackets of 
-% \usepackage.
-
-% Ordinarily, breaks are not allowed after “-” characters because this leads
-% to confusion. (Is the “-” part of the address or just a hyphen?) The 
-% package option “[hyphens]” allows breaks after explicit hyphen characters.
-% The \url command will never ever hyphenate words.
-% Also can use \path{}
-\PassOptionsToPackage{hyphens,obeyspaces,spaces}{url}
-
-% Allows link text to break across lines; since this cannot be accommodated 
-% in PDF, it is only set true by default if the pdftex driver is used. This
-% makes links on multiple lines into different PDF links to the same target.
-\PassOptionsToPackage{breaklinks=true}{hyperref}
-
-% http://tex.stackexchange.com/questions/167948/package-rerunfilecheck-warning-file-out-has-changed
-% Or add \usepackage{bookmark}. Then a more modern implementation of the 
-% bookmarks managing is used without .out file. The bookmarks are updated 
-% earlier, thus in most cases only one LaTeX run is needed.
-\usepackage{bookmark}
-
-%% breakurl needs hyperref, but hyperref is loaded by bookmark!
-\usepackage[anythingbreaks]{breakurl}
-
 %% Internal links
 \hypersetup{
 colorlinks=true,
@@ -65,57 +12,16 @@ filecolor=magenta,
 urlcolor=cyan,
 citecolor=cyan,
 %pdfborder={0 0 0},      % No borders around internal hyperlinks
-pdftitle={Raymon White Resume},
-pdfauthor={Raymon White} % author
+pdftitle={RNO Fo-short},
+pdfauthor={Ray White} % author
 }
 \urlstyle{same}
 
+% Add bibtex files
+\addbibresource{Bibliographies/library.bib}
+\addbibresource{Bibliographies/website_ref.bib}
 
 
-%---------------------------------------------------------------------------
-% graphic, graphicx
-%---------------------------------------------------------------------------
-
-%% This is for includegraphics{}
-% \usepackage{graphics} % Already loaded by graphicsx
-% pdftex (default if compiling with pdflatex), if you are compiling with 
-% pdftex to get a PDF that you will see with any PDF viewer.
-
-% This gets an error, reason is below:
-%\usepackage[pdftex]{graphicx}
-
-% PDFLaTeX does not support EPS files. However, some modern LaTeX 
-% distributions will try to automatically convert it to a PDF image, which 
-% maybe this doesn't work in your case. It would be also possible that the 
-% size information, namely the bounding box, in that EPS file is missing.
-%
-%If you are using latex, i.e. the DVI mode of LaTeX, which supports EPS then
-%you should remove the incorrect pdftex option from the graphicx package. 
-%The packages should be able to figure out the used driver by themselves, so
-%you should avoid such options anyway. If you are using pdflatex then it 
-%would be better to convert the EPS to a PDF file manually, e.g. using the 
-%epstopdf tool (I'm not sure if it comes with the Windows version, but I 
-%think so). You need to change the .eps extension to .pdf then, of course. 
-%You can also drop the extension and LaTeX will look for files with the 
-%given base name with all supported extensions, i.e. \includegraphics{file} 
-%will use file.eps for latex and file.pdf (or file.png, file.jpg) for 
-%pdflatex.
-
-% TL;DR: Take out pdftex, and convert eps to pdf manually (although the
-% engine should do it for us, if required)
-\usepackage{graphicx}
-
-
-
-
-\usepackage{titlesec}
-
-% For lorem ipsum
-\usepackage[english]{babel}
-\usepackage{blindtext}
-% usage:
-%\blindtext
-%\Blindtext
 
 
 
@@ -147,66 +53,25 @@ pdfauthor={Raymon White} % author
 
 \pagenumbering{gobble}
 
-%\lstset{numbers=left, 
-%        stepnumber=2, 
-%        frame=single,
-%        basicstyle=\footnotesize,
-%        showstringspaces=false,
-%        language=C++}
 
 \raggedbottom
 \raggedright
 \setlength{\tabcolsep}{0in}
 
-% Sections formatting
-\titleformat{\section}{
-  \vspace{-4pt}\Large\bfseries\raggedright
-}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+%% Sections formatting
+%\titleformat{\section}{
+%  \vspace{-4pt}\Large\bfseries\raggedright
+%}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
 
 %Add horizontal line under each section heading
 %\titleformat{\section}
 %  {\normalfont\Large\bfseries}{}{1em}{}[{\titlerule[0.8pt]}]
 
 
-%-------------------------
-% Custom commands
-\newcommand{\resumeItem}[2]{
-  \item\small{
-    \textbf{#1}{: #2 \vspace{-2pt}}
-  }
-}
-
-\newcommand{\resumeSubheading}[4]{
-  \vspace{-1pt}\item
-    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
-      \textbf{#1} & #2 \\
-      \textit{\small#3} & \textit{\small #4} \\
-    \end{tabular*}\vspace{-5pt}
-}
-
-\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-4pt}}
-
-\renewcommand{\labelitemii}{$\circ$}
-
-\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*]}
-\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
-\newcommand{\resumeItemListStart}{\begin{itemize}}
-\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
 
 \setlength{\parindent}{1em}
 \setlength{\parskip}{1em}
 %\renewcommand{\baselinestretch}{2.0}
-
-
-
-% Underlined and bold and newlined
-% the \phantomsection is for when we use label{rh:foo}
-\DeclareRobustCommand{\rrheaderunderline}[1]{\par\medskip\phantomsection\noindent\textbf{\underline{#1}}\medskip}
-\DeclareRobustCommand{\rrheader}[1]{\par\medskip\phantomsection\noindent{\normalsize\textbf{#1}}\medskip}
-\DeclareRobustCommand{\rrheaderlarge}[1]{\par\medskip\phantomsection\noindent{\large\textbf{#1}}\medskip}
-\DeclareRobustCommand{\rrheaderLarge}[1]{\par\medskip\phantomsection\noindent{\Large\textbf{#1}}\medskip}
-
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -214,247 +79,136 @@ pdfauthor={Raymon White} % author
 %%Document begin
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+
+
+\author{Raymon White}
+\title{Ray's Notes On \\ 
+       Foo-long\\
+       (RNO-Fo-short)}
+
+%%% NOTE: If re-compiling all, remember to comment out the silence warning
+%%% at the top, for missing labels.
+
+%\includeonly{Contents/ch08CmplTmPrgrmmng}
+
 \begin{document}
+
+%---------------------------------------------------------------------------
+% Other settings
+%---------------------------------------------------------------------------
+
+% \numberwithin from the amsmath package provides per section numbering.
+% we want per section. Note that the amsmath package is loaded from
+% mathtools, loaded above.
+% Note: we cannot put this in the preamble since lstlisting does not like
+% it.
+\numberwithin{equation}{chapter}
+\numberwithin{figure}{chapter}
+\numberwithin{lstlisting}{chapter}
+\numberwithin{table}{chapter}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\maketitle
+
+%\begin{abstract}
+%This is a test abstract.
+%%\input{Contents/abstract}
+%\end{abstract}
+%%\clearpage
+
+\thispagestyle{plain}
+\begin{center}
+  \Large
+  \textbf{Thesis Title}
+    
+  \vspace{0.4cm}
+  \large
+  Thesis Subtitle
+  
+  \vspace{0.4cm}
+  \textbf{Author Name}
+  
+  \vspace{0.9cm}
+  \textbf{Abstract}
+\end{center}
+Lorem ipsum dolor...
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %-----------Begin Doc-------------------------------------------------------
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Wikipedia Article}
 
-\url{https://en.wikipedia.org/wiki/Schlumberger}
 
-Schlumberger Limited is the world's largest oilfield services company.
-Schlumberger employs approximately \textbf{100,000 people} representing more
-than 140 nationalities working in more than 85 countries. Schlumberger has
-four principal executive offices located in \textbf{Paris},
-\textbf{Houston}, \textbf{London}, and \textbf{the Hague} (a city on the
-western coast of the Netherlands and the capital of the province of South
-Holland.).
+\chapter[Introduction]
+{Introduction
+  \label{ch0introduction}}
+\chaptermark{Introduction}
 
-Oilfield service companies--companies which provide services to the
-petroleum exploration and production industry but do not typically produce
-petroleum themselves. 
+\section{Preface}
 
-\textbf{Schlumberger subidiaries:}
-\begin{itemize}[noitemsep,topsep=0pt]
-\item Cameron International: a global provider of pressure control,
-  processing, flow control and compression systems as well as project
-  management and aftermarket services for the \textbf{oil and gas and
-    process industries}.
-\item Geophysical Service (GSI): purpose of using refraction and reflection
-  seismology to explore for petroleum deposits.
-\item Geoservices: an \textbf{upstream} (see below for explanation) oilfield
-  service company founded in 1958 by Gaston Rebilly. It provides a range of
-  skills that help evaluate hydrocarbon reservoirs and optimize field
-  exploration, development and production. Geoservices provides in 3
-  business segments: \textbf{(1)} Mud Logging (World No. 1), \textbf{(2)}
-  Field Surveillance and \textbf{(2)} Well Intervention (World No. 2).
-\item Smith International: Smith International was a Fortune 500 company
-  headquartered in the Greenspoint district and in unincorporated Harris
-  County, Texas. Smith International ceased to exist as an independent
-  company following \textbf{the merger with Schlumberger}. This company
-  supplies products to gas and oil production and exploration companies. The
-  company used to be easily identified by its red \textbf{Sii} logo. The
-  company had recently changed its logo to consist of the word "SMITH" in
-  black capital letters with a green globe.
-\item WesternGeco: WesternGeco is a geophysical services company. It is
-  headquartered in the Schlumberger House on the property of London Gatwick
-  Airport in Crawley, West Sussex, in Greater London. The company provides
-  reservoir imaging, monitoring, and development services. The company, a
-  business segment of Schlumberger, offers 3D and time-lapse seismic
-  surveys, electromagnetic surveys, and multicomponent surveys for
-  delineating prospects and reservoir management. It also provides
-  geophysical, land and transition-zone acquisition, marine acquisition,
-  electromagnetics, and data processing and reservoir seismic services. The
-  company, formerly known as Western Geophysical Company, was founded in
-  1933.
-\end{itemize}
+Some notes I've taken during LeetCode problems.
 
-\textbf{Upstream/midstream and downstream:}
+I will get latex warnings if I don't have at least one reference:
+\cite{wiki_templatecpp}
 
-The oil and gas industry is usually divided into three major sectors:
-upstream (or \textbf{exploration and production--E\&P}), midstream and
-downstream.
-\begin{itemize}[noitemsep,topsep=0pt]
-\item Upstream: The upstream sector includes searching for potential
-  underground or underwater crude oil and natural gas fields, drilling
-  exploratory wells, and subsequently drilling and operating the wells that
-  recover and bring the crude oil or raw natural gas to the surface.
-  There has been a significant shift toward including unconventional gas as
-  a part of the upstream sector, and corresponding developments in liquefied
-  natural gas (LNG) processing and transport.
 
-  \textbf{Business:} This categorization comes from value chain concepts,
-  even before formal development Value Chain Management: \textbf{Oil Service
-    Company:} A company that provides products and/or services to the oil
-  and gas industry.  Usually a combination of labor, equipment, and/or other
-  support services.  Examples include Baker Hughes, Haliburton, and
-  Schlumberger.
-\item The midstream sector involves the transportation (by pipeline, rail,
-  barge, oil tanker or truck), storage, and wholesale marketing of crude or
-  refined petroleum products. Pipelines and other transport systems can be
-  used to move crude oil from production sites to refineries and deliver the
-  various refined products to \textbf{downstream distributors}. Natural gas
-  pipeline networks aggregate gas from natural gas purification plants and
-  deliver it to \textbf{downstream customers}, such as local utilities.
 
-  The midstream operations are often taken to include some elements of the
-  upstream and downstream sectors. For example, the midstream sector may
-  include natural gas processing plants that purify the raw natural gas as
-  well as removing and producing elemental sulfur and natural gas liquids
-  (NGL) as finished end-products.
-\item The downstream sector is the refining of petroleum crude oil and the
-  processing and purifying of raw natural gas, as well as the marketing
-  and distribution of products derived from crude oil and natural gas. The
-  downstream sector reaches consumers through products such as gasoline or
-  petrol, kerosene, jet fuel, diesel oil, heating oil, fuel oils,
-  lubricants, waxes, asphalt, natural gas, and liquefied petroleum gas (LPG)
-  as well as hundreds of petrochemicals.
 
-  Midstream operations are often included in the downstream category and are
-  considered to be a part of the downstream sector.
-\end{itemize}
 
-Schlumberger was \textbf{founded in 1926} by brothers Conrad and Marcel
-Schlumberger from the Alsace region in France as the Soci\'et\'e de
-prospection \'electrique (French: Electric Prospecting Company). The company
-recorded the first-ever electrical resistivity well log in
-Merkwiller-Pechelbronn, France in 1927. Today Schlumberger supplies the
-petroleum industry with services such as \textbf{seismic acquisition} and
-\textbf{processing}, \textbf{formation evaluation}, \textbf{well testing}
-and \textbf{directional drilling}, \textbf{well cementing} and
-\textbf{stimulation}, \textbf{artificial lift}, \textbf{well completions},
-\textbf{flow assurance} and \textbf{consulting}, and \textbf{software and
-  information management}. The company is also involved in the groundwater
-extraction and carbon capture and storage industries.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The brothers had experience conducting geophysical surveys in countries such
-as Romania, Canada, Serbia, South Africa, the Democratic Republic of the
-Congo and the United States. The new company sold electrical-measurement
-mapping services, and recorded the first-ever electrical resistivity well
-log in Merkwiller-Pechelbronn, France in 1927. The company quickly expanded,
-logging its first well in the U.S. in 1929, in Kern County, California. In
-1935, the Schlumberger Well Surveying Corporation was founded in Houston,
-later evolving into Schlumberger Well Services, and finally Schlumberger
-Wireline \& Testing. Schlumberger invested heavily in research, inaugurating
-the Schlumberger-Doll Research Center in Ridgefield, Connecticut in 1948,
-contributing to the development of a number of new logging tools. In 1956,
-Schlumberger Limited was incorporated as a holding company for all
-Schlumberger businesses, which by now included American testing and
-production company Johnston Testers.
+\appendix
+\counterwithin{figure}{chapter}
 
-Over the years, Schlumberger continued to expand its operations and
-acquisitions. In \textbf{1960}, Dowell Schlumberger (50\% Schlumberger, 50\%
-Dow Chemical), which specialized in pumping services for the oil industry,
-was formed. In \textbf{1962}, Schlumberger Limited became listed on the New
-York Stock Exchange. That same year, \textbf{Schlumberger purchased
-  Daystrom}, an electronic instruments manufacturer in South Boston,
-Virginia which was \textbf{making furniture by the time the division was
-  sold to Sperry \& Hutchinson in 1971}. Schlumberger purchased 50\% of
-Forex in 1964 and merged it with 50\% of Languedocienne to create the
-Neptune Drilling Company. The first computerized reservoir analysis,
-SARABAND, was introduced in 1970. The remaining 50\% of Forex was acquired
-the following year; Neptune was renamed Forex Neptune Drilling Company. In
-1979, Fairchild Camera and Instrument (including Fairchild Semiconductor)
-became a subsidiary of Schlumberger Limited.
+%\include{Contents/pt04Appndxs}
+%\include{Contents/chAThOnDfntnRl}
+%\include{Contents/chBVlCtgrs}
+%\include{Contents/chCOvrldRsltn}
+%\include{Contents/chDStndrdTypUtlts}
+%\include{Contents/chECncpts}
 
-In 1981, Schlumberger established the first international data links with
-e-mail. \textbf{In 1983, Schlumberger opened their Cambridge Research Center
-  in Cambridge, England and in 2012 it was renamed the Schlumberger Gould
-  Research Center after the company's former CEO Andrew Gould.}
+%\chapter{Causality}
+%
+%\lipsum[1-15]
 
-The SEDCO drilling rig company and half of Dowell of North America were
-acquired in 1984, resulting in the creation of the Anadrill drilling
-segment, a combination of Dowell and The Analysts' drilling segments. Forex
-Neptune was merged with SEDCO to create the Sedco Forex Drilling Company the
-following year, when Schlumberger purchased Merlin and 50\% of GECO.
 
-In 1987, Schlumberger completed their purchases of Neptune (North America),
-Bosco and Cori (Italy), and Allmess (Germany). That same year, National
-Semiconductor acquired Fairchild Semiconductor from Schlumberger for \$122
-million. In 1991, Schlumberger acquired PRAKLA-SEISMOS, and pioneered the
-use of geosteering to plan the drill path in horizontal wells.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% BIBLIOGRAPHY
+%%% -------------------------------------------------------------
 
-\textbf{Schlumberger acquired software company GeoQuest Systems in 1992.}
-With the purchase came the conversion of SINet to TCP/IP and www capability.
-In the 1990s Schlumberger bought out the petroleum division, AEG meter, and
-ECLIPSE reservoir study team Intera Technologies Corp. A joint venture
-between Schlumberger and Cable \& Wireless resulted with the creation of
-Omnes, which then handled all of Schlumberger's internal IT business.
-Oilphase and Camco International were also purchased.
+% \bibliographystyle{utphysics}
+% \bibliography{ref}
 
-\textbf{In 1999, Schlumberger and Smith International created a joint venture, M-I
-L.L.C., the world's largest drilling fluids (or mud) company.} The company
-consists of 60\% Smith International, and 40\% Schlumberger. Since the joint
-venture was prohibited by a 1994 antitrust consent decree barring Smith from
-selling or combining their fluids business with certain other companies,
-including Schlumberger, the U.S. District Court in Washington, D.C. found
-Smith International Inc. and Schlumberger Ltd. guilty of criminal contempt
-and fined each company \$750,000 and placed each company on five years
-probation. Both companies also agreed to pay a total of \$13.1 million,
-representing a full disgorgement of all of the joint venture's profits
-during the time the companies were in contempt.[17]
+\defbibnote{myprenote}{Numbers in brackets following a reference give page numbers where the reference is cited.}
+% Does what it says (using biblatex package)
+\printbibliography[prenote=myprenote]
+%\printbibliography
 
-In 2000, the Geco-Prakla division was merged with Western Geophysical to
-create the seismic contracting company WesternGeco, of which Schlumberger
-held a 70\% stake, the remaining 30\% belonging to competitor Baker Hughes.
-Sedco Forex was spun off, and merged with Transocean Drilling company in
-2000.
+%\begingroup
+%%\setstretch{0.9}
+%\sloppy
+%%\singlespacing
+%\setlength\bibitemsep{1pt}
+%\printbibliography
+%\endgroup
 
-In 2001, Schlumberger acquired the IT consultancy company Sema plc for \$5.2
-billion. The company was an Athens 2004 Summer Olympics partner, but
-Schlumberger's venture into IT consultancy did not pay off, and
-divestiture\footnote{the action or process of selling off subsidiary
-  business interests or investments.} of Sema to Atos Origin was completed
-that year for \$1.5 billion. The cards division was divested through an IPO
-to form Axalto, which later merged with Gemplus to form Gemalto, and the
-Messaging Solutions unit was spun off and merged with Taral Networks to form
-Airwide Solutions. In 2003, the Automated Test Equipment group, part of the
-1979 Fairchild Semiconductor acquisition, was spun off to NPTest Holding,
-which later sold it to Credence.
 
-In 2004, Schlumberger Business Consulting was launched. Based in Paris, it
-is the company's management consultancy arm.
 
-In 2005, Schlumberger purchased Waterloo Hydrogeologic, which was followed
-by several other groundwater industry related companies, such as Westbay
-Instruments, and Van Essen Instruments. Also that year, Schlumberger
-relocated its U.S. corporate offices from New York to Houston.
 
-In 2006, Schlumberger purchased the remaining 30\% of WesternGeco from Baker
-Hughes for US\$2.4 billion. Also that year, the Schlumberger-Doll
-Research Center was relocated to a newly built research facility in
-Cambridge, Massachusetts to replace the Ridgefield, Connecticut research
-center. The facility joins the other research centers operated by the
-company in Cambridge, England; Moscow, Russia; Stavanger, Norway; and
-Dhahran, Saudi Arabia.
 
-In 2010, the acquisition of Smith International in an all-stock deal valued
-at \$11.3 billion was announced. The sale price is 45.84-a-share price was
-37.5 percent higher than Smith closing price on 18 February 2010. The deal
-is the biggest acquisition in Schlumberger history. The merger was
-completed on August 27, 2010. Also announced in 2010 were Schlumberger
-plans to acquire Geoservices, a French-based company specializing in energy
-services, in a deal valued at \$1.1 billion, including debt.
 
-In 2014, Schlumberger announced the purchase of the remaining shares of SES
-Holdings Limited (``Saxon''), a Calgary-based provider of international land
-drilling services, from First Reserve and certain members of Saxon
-management. The transaction is subject to customary closing conditions,
-including the receipt of regulatory approvals. Schulmberger had a minority
-share in Saxon previously.
 
-In 2015, Schlumberger was indicted by the US Department of Justice for
-sanction violations of conducting business in Iran and Sudan; the company
-was fined \$233 million, amounting to the largest fine for sanctions to
-date.
 
-Due to a downturn in the global oil \& gas industry in 2015, Schlumberger
-announced 21,000 layoffs accounting for 15\% of their total workforce.
-
-In August 2015, Schlumberger agreed to acquire oilfield equipment
-manufacturer Cameron International for \$14.8 billion.
 
  
  \end{document}
