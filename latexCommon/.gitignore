@@ -3,6 +3,10 @@
 # After the notes taking is done, commit main.pdf by uncommenting !main.pdf
 #!main.pdf
 
+Bin/Makefile
+Bin/gen_chapters
+Bin/gen_chapters.o
+
 *.aux
 *.bbl
 *.bcf
@@ -14,7 +18,7 @@
 *.log
 *.pdf
 *.out.ps
-*.ps
+main.ps
 *.run.xml
 *.toc
 *.swp
